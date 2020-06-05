@@ -1,7 +1,8 @@
 {
   "name": "myrotvorets.fm",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "https://myrotvorets.center/player/",
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack --mode=production",
