@@ -1,0 +1,47 @@
+@import '../../scss/vars';
+
+.playlist {
+    border: 1px solid $primary-color;
+    border-radius: 0 0 $border-radius $border-radius;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow: auto;
+    min-height: 10rem;
+    padding-bottom: 1px;
+
+    > p {
+        padding: 1rem;
+        text-align: center;
+        margin: auto;
+    }
+
+    input {
+        background-color: burlywood;
+        border: 0;
+        border-bottom: 1px solid $primary-color;
+        margin: 0;
+        padding: .25rem;
+    }
+
+    .items {
+        overflow: auto;
+
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .item {
+            height: 41px;
+            padding: .5rem 0 .5rem 1rem;
+            cursor: pointer;
+            line-height: 27px;
+            overflow: hidden;
+
+            &.active {
+                background: $background-alt-color;
+            }
+        }
+    }
+}

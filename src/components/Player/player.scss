@@ -1,0 +1,121 @@
+@import '../../scss/vars';
+
+.Player {
+    border: 1px solid $primary-color;
+    border-bottom: 0;
+    border-radius: $border-radius $border-radius 0 0;
+    padding: 1rem;
+
+    button {
+        cursor: pointer;
+        padding: 3px;
+        border: 0;
+        outline: 0;
+        background: $background-alt-color;
+        border-radius: 5px;
+        box-shadow: 2px 2px 2px #000, 0 0 2px #0d0d0d;
+        width: 35px;
+        height: 35px;
+
+        > svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            fill: $primary-color;
+        }
+    }
+
+    button[disabled] > svg {
+        fill: #ccc;
+    }
+
+    .volume-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        button {
+            margin-right: 1em;
+        }
+
+        .volume {
+            flex-grow: 1;
+        }
+    }
+
+    .progress-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        height: 14px;
+        overflow: hidden;
+
+        .progress {
+            flex-grow: 1;
+        }
+    }
+
+    .time-container {
+        padding-left: 1rem;
+        font-size: 0.7em;
+        width: 105px;
+    }
+
+    .Loader {
+        margin-top: -1px;
+        font-size: .43em;
+    }
+
+    .meta-container {
+        margin-bottom: 1rem;
+        height: 3rem;
+        display: flex;
+        flex: 0 0 3rem;
+        align-items: center;
+    }
+
+    .control-container {
+        display: flex;
+        justify-content: space-evenly;
+
+        button {
+            width: 45px;
+            height: 45px;
+        }
+    }
+
+    .MuteButton.muted,
+    .ShuffleButton.shuffle,
+    .RepeatButton.repeat {
+        svg {
+            fill: #ff5c20;
+        }
+    }
+
+    .progress {
+        flex-grow: 1;
+    }
+
+    .progress,
+    .volume {
+        position: relative;
+        height: 14px;
+    }
+
+    .progress *,
+    .volume * {
+        position: absolute;
+        height: 12px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid $primary-color;
+        border-radius: 15px;
+        background: transparent;
+        width: 100%;
+    }
+
+    .volume-bar, .progress-bar {
+        background: url(../../images/bg.svg#fec602) repeat-y;
+        background-size: 0 100%;
+    }
+}

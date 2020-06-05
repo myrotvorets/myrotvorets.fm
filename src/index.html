@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk-UA">
+<head>
+<meta charset="utf-8"/>
+<title>Myrotvorets FM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<link rel="preconnect" href="https://psb4ukr.natocdn.net" />
+<meta name="description" content="Радіо «Миротворець»"/>
+<meta name="theme-color" content="#001E3E"/>
+<link rel="icon" type="image/png" href="<%= require('./images/logo32.png') %>"/>
+<link rel="apple-touch-icon" href="<%= require('./images/logo192w.png') %>"/>
+<link rel="manifest" href="<%= require('./manifest.json') %>" />
+<style>
+<%= require('!!css-loader!sass-loader!./components/App/app.scss') %>
+</style>
+</head>
+<body>
+    <header>
+        <picture>
+            <source srcset="<%= require('./images/header.webp') %>" type="image/webp" />
+            <img src="<%= require('./images/header.png') %>" alt="Radio Myrotvorets" />
+        </picture>
+    </header>
+    <main id="app">
+        <p>Триває завантаження аудіоплеєра…</p>
+    </main>
+    <footer>
+        Copyright © 2020 <a href="https://myrotvorets.center/" target="_blank" rel="noopener">Myrotvorets Research Center</a>
+    </footer>
+    <script nomodule="nomodule">
+        if(!location.pathname.test(/compat/))location.pathname=location.pathname.replace('index.html','')+'compat.html';
+    </script>
+</body>
+</html>
