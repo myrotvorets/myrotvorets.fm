@@ -38,4 +38,25 @@ if (!process.env.BUILD_SSR) {
             };
         });
     }
+
+    (document.getElementById('version') as HTMLElement).addEventListener('click', () => {
+        if (window.caches) {
+            window.caches
+                .keys()
+                .then((keyList) => Promise.all(keyList.map((key) => window.caches.delete(key))))
+                .then(() => {
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.getRegistration().then((reg) => {
+                            if (reg) {
+                                reg.unregister().then(() => window.location.reload(true));
+                            } else {
+                                window.location.reload(true);
+                            }
+                        });
+                    } else {
+                        window.location.reload(true);
+                    }
+                });
+        }
+    });
 }

@@ -25,7 +25,13 @@
         <p>Триває завантаження аудіоплеєра…</p>
     </main>
     <footer>
-        Copyright © 2020 <a href="https://myrotvorets.center/" target="_blank" rel="noopener">Myrotvorets Research Center</a>
+        <p>Copyright © 2020 <a href="https://myrotvorets.center/" target="_blank" rel="noopener">Myrotvorets Research Center</a></p>
+        <p>
+            <span id="version">
+                <%= version %>
+                <img src="<%= require('./images/refresh.svg') %>" alt=""/>
+            </span>
+        </p>
     </footer>
     <script nomodule="nomodule">
         if(!location.pathname.test(/compat/))location.pathname=location.pathname.replace('index.html','')+'compat.html';
