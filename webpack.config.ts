@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 import webpack from 'webpack';
 

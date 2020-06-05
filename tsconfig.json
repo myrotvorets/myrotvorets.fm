@@ -12,6 +12,6 @@
     "esModuleInterop": true,
     "skipDefaultLibCheck": true
   },
-  "include": ["webpack.*.ts", ".webpack/webpack.*.ts", "src/**/*.ts", "src/**/*.tsx"],
+  "include": ["webpack.*.ts", ".webpack/*.ts", "src/**/*.ts", "src/**/*.tsx"],
   "compileOnSave": true
 }
