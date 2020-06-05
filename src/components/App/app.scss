@@ -61,19 +61,3 @@ footer {
         vertical-align: middle;
     }
 }
-
-@media (max-height: 640px) {
-    body { font-size: 14px; }
-
-    header {
-        display: none;
-    }
-
-    .Player {
-        margin-top: 1em;
-    }
-
-    footer {
-        font-size: 11px;
-    }
-}

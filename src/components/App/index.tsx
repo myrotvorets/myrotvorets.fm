@@ -5,6 +5,7 @@ import { setLSItem } from '../../utils';
 
 // This is imported in `index.html` as a critical CSS
 /* import './app.scss'; */
+import './app-loaded.scss';
 
 interface State {
     playlist: PlaylistEntry[] | null;
