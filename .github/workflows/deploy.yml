@@ -21,6 +21,12 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Save artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        - path: ./build/
+        - name: build
+
     - name: Deploy
       env:
         DEPLOY_TARGET: ${{ secrets.DEPLOY_TARGET }}
