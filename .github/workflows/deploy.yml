@@ -1,0 +1,28 @@
+name: Deployment
+
+on:
+  deployment
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v1.4.2
+      with:
+        node-version: 12
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Deploy
+      env:
+        DEPLOY_TARGET: ${{ secrets.DEPLOY_TARGET }}
+        RSYNC_PASSWORD: ${{ secrets.RSYNC_PASSWORD }}
+      run: rsync -avHz --ignore-times build/ $DEPLOY_TARGET
