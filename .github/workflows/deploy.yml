@@ -32,3 +32,10 @@ jobs:
         DEPLOY_TARGET: ${{ secrets.DEPLOY_TARGET }}
         RSYNC_PASSWORD: ${{ secrets.RSYNC_PASSWORD }}
       run: rsync -avHz --ignore-times build/ $DEPLOY_TARGET
+
+    - name: Create Github Deployment Status
+      uses: unacast/actions-github-deployment-status@0.2
+      if: always()
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        status: ${{ job.status }}
