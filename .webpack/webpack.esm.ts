@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import TerserPlugin from 'terser-webpack-plugin';
 import path from 'path';
 import { HwpAttributesPlugin } from 'hwp-attributes-plugin';
-import merge from 'webpack-merge';
+import { merge } from 'webpack-merge';
 import commonConfig from './common';
 import commonProdConfig from './common-prod';
 

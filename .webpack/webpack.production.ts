@@ -1,7 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import TerserPlugin from 'terser-webpack-plugin';
-import merge from 'webpack-merge';
+import { merge } from 'webpack-merge';
 import commonConfig from './common';
 import commonProdConfig from './common-prod';
 

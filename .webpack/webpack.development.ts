@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import merge from 'webpack-merge';
+import { merge } from 'webpack-merge';
 import commonConfig from './common';
 
 export default function (): webpack.Configuration {
@@ -41,8 +41,6 @@ export default function (): webpack.Configuration {
             }),
             new ForkTsCheckerWebpackPlugin({
                 async: true,
-                useTypescriptIncrementalApi: true,
-                eslint: true,
             }),
         ],
     });
