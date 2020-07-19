@@ -1,10 +1,11 @@
 name: Deployment
 
 on:
-  deployment
+  push:
+    branches: [ master ]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,15 +28,31 @@ jobs:
         path: ./build/
         name: build
 
+    - name: Start deployment
+      uses: chrnorm/deployment-action@v1.2.0
+      id: deployment
+      with:
+        token: "${{ github.token }}"
+        environment: production
+
     - name: Deploy
       env:
         DEPLOY_TARGET: ${{ secrets.DEPLOY_TARGET }}
         RSYNC_PASSWORD: ${{ secrets.RSYNC_PASSWORD }}
       run: rsync -avHz --ignore-times build/ $DEPLOY_TARGET
 
-    - name: Create Github Deployment Status
-      uses: unacast/actions-github-deployment-status@v0.3.0
-      if: always()
+    - name: Update deployment status (success)
+      if: success()
+      uses: chrnorm/deployment-status@v1.0.0
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        status: ${{ job.status }}
+        token: "${{ github.token }}"
+        state: "success"
+        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+    - name: Update deployment status (failure)
+      if: failure()
+      uses: chrnorm/deployment-status@v1.0.0
+      with:
+        token: "${{ github.token }}"
+        state: "failure"
+        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
