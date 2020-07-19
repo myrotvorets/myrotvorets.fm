@@ -34,7 +34,7 @@ jobs:
       run: rsync -avHz --ignore-times build/ $DEPLOY_TARGET
 
     - name: Create Github Deployment Status
-      uses: unacast/actions-github-deployment-status@0.2
+      uses: unacast/actions-github-deployment-status@v0.3.0
       if: always()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
