@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+    - run: git fetch --unshallow --tags
 
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.1.0
