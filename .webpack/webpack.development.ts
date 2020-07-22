@@ -40,7 +40,10 @@ export default function (): webpack.Configuration {
                 'process.env.ESM': JSON.stringify(false),
             }),
             new ForkTsCheckerWebpackPlugin({
-                async: true,
+                eslint: {
+                    enabled: true,
+                    files: ['src/**/*.{ts,tsx}'],
+                },
             }),
         ],
     });
