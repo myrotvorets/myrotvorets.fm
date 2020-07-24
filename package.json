@@ -33,7 +33,7 @@
     "@types/webpack": "^4.41.21",
     "@types/webpack-dev-server": "^3.11.0",
     "@types/webpack-merge": "^4.1.5",
-    "@types/webpack-sources": "^1.4.0",
+    "@types/webpack-sources": "^1.4.1",
     "@types/webpack-subresource-integrity": "^1.2.0",
     "@types/workbox-webpack-plugin": "^5.1.2",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
