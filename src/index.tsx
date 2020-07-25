@@ -26,17 +26,16 @@ if (!process.env.BUILD_SSR) {
         !/^(127|192\.168|10)\./.test(window.location.hostname)
     ) {
         navigator.serviceWorker.register('sw.js').then((reg) => {
-            // eslint-disable-next-line no-param-reassign
-            reg.onupdatefound = () => {
+            reg.addEventListener('updatefound', () => {
                 const installingWorker = reg.installing;
                 if (installingWorker) {
-                    installingWorker.onstatechange = () => {
+                    installingWorker.addEventListener('statechange', () => {
                         if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
                             reg.update();
                         }
-                    };
+                    });
                 }
-            };
+            });
         });
     }
 
