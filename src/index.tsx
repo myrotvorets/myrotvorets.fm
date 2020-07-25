@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable import/first, global-require */
 
 if (process.env.NODE_ENV === 'development') {
@@ -40,23 +41,35 @@ if (!process.env.BUILD_SSR) {
     }
 
     (document.getElementById('version') as HTMLElement).addEventListener('click', () => {
-        if (window.caches) {
-            window.caches
+        if (self.caches) {
+            self.caches
                 .keys()
-                .then((keyList) => Promise.all(keyList.map((key) => window.caches.delete(key))))
+                .then((keyList) => Promise.all(keyList.map((key) => self.caches.delete(key))))
                 .then(() => {
                     if ('serviceWorker' in navigator) {
-                        navigator.serviceWorker.getRegistration().then((reg) => {
-                            if (reg) {
-                                reg.unregister().then(() => window.location.reload(true));
-                            } else {
-                                window.location.reload(true);
-                            }
-                        });
+                        navigator.serviceWorker
+                            .getRegistration()
+                            .then((reg) => {
+                                if (reg) {
+                                    reg.unregister().then(() => self.location.reload(true));
+                                } else {
+                                    self.location.reload(true);
+                                }
+                            })
+                            .catch((e) => {
+                                console.error(e);
+                                self.location.reload(true);
+                            });
                     } else {
-                        window.location.reload(true);
+                        self.location.reload(true);
                     }
+                })
+                .catch((e) => {
+                    console.error(e);
+                    self.location.reload(true);
                 });
+        } else {
+            self.location.reload(true);
         }
     });
 }
