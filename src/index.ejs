@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="<%= require('./images/logo192w.png') %>"/>
 <link rel="manifest" href="<%= require('./manifest.json') %>" />
 <style>
-<%= require('!!css-loader!sass-loader!./components/App/app.scss') %>
+<%= require('!!css-loader?esModule=false!sass-loader!./components/App/app.scss') %>
 </style>
 </head>
 <body>
