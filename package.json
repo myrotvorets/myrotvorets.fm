@@ -67,7 +67,7 @@
     "node-sass": "^4.14.1",
     "null-loader": "^4.0.0",
     "postcss-loader": "^3.0.0",
-    "preact": "^10.4.6",
+    "preact": "^10.4.7",
     "preact-render-to-string": "^5.1.10",
     "prettier": "^2.0.5",
     "promise-polyfill": "^8.1.3",
