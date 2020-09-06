@@ -6,7 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import PurgecssPlugin from 'purgecss-webpack-plugin';
 import SriPlugin from 'webpack-subresource-integrity';
 import { InjectManifest } from 'workbox-webpack-plugin';
-import InlineRuntimePlugin from 'html-webpack-inline-runtime-plugin';
+import { HwpInlineRuntimeChunkPlugin } from 'hwp-inline-runtime-chunk-plugin';
 import { HwpCspPlugin } from 'hwp-csp-plugin';
 import ServiceWorkerPlugin from './ServiceWorkerPlugin';
 
@@ -55,6 +55,7 @@ export default function (): webpack.Configuration {
                 'process.env.NODE_ENV': JSON.stringify('production'),
                 'process.env.BUILD_SSR': JSON.stringify(false),
             }),
+            new HwpInlineRuntimeChunkPlugin({ removeSourceMap: true }),
             new SriPlugin({ hashFuncNames: ['sha384'] }),
             new HwpCspPlugin({
                 policy: {
@@ -73,7 +74,6 @@ export default function (): webpack.Configuration {
                 hashEnabled: true,
                 hashFunc: 'sha384',
             }),
-            new InlineRuntimePlugin(),
             new InjectManifest({
                 swSrc: './src/sw.ts',
                 include: ['index.html', /\.js$/, /\.svg$/, /\.css$/, /\.webp$/],
@@ -97,9 +97,7 @@ export default function (): webpack.Configuration {
         optimization: {
             moduleIds: 'hashed',
             minimize: true,
-            runtimeChunk: {
-                name: 'runtime',
-            },
+            runtimeChunk: 'single',
         },
     };
 }
