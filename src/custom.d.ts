@@ -1,7 +1,7 @@
-interface IHowlProperties {
+export interface IHowlProperties {
     xhr?: Record<string, unknown> | null;
 }
 
-interface HowlerGlobal {
+export interface HowlerGlobal {
     stop(): void;
 }

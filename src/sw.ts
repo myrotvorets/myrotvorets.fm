@@ -38,6 +38,7 @@ registerRoute(
     }),
 );
 
+// eslint-disable-next-line no-undef
 declare let self: ServiceWorkerGlobalScope;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const manifest = [].concat((self as any).__WB_MANIFEST || []);
