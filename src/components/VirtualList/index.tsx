@@ -1,4 +1,4 @@
-import { h, Component, ComponentChild, ClassAttributes, FunctionComponent, ComponentConstructor } from 'preact';
+import { ClassAttributes, Component, ComponentChild, ComponentConstructor, FunctionComponent, h } from 'preact';
 
 const styleInner = {
     position: 'relative',

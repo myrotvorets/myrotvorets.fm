@@ -1,40 +1,59 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "project": ["./tsconfig.json"]
-  },
-  "plugins": [
-    "@typescript-eslint"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "preact",
-    "plugin:prettier/recommended"
-  ],
-  "rules": {
-    "@typescript-eslint/indent": 0,
-    "@typescript-eslint/camelcase": 0,
-    "func-names": 0,
-    "import/extensions": 0,
-    "jsx-quotes": ["error", "prefer-double"],
-    "max-len": 0,
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "no-irregular-whitespace": ["error", {
-      "skipStrings": true,
-      "skipComments": true,
-      "skipRegExps": true,
-      "skipTemplates": true
-    }],
-    "no-plusplus": 0,
-    "no-underscore-dangle": 0,
-    "react/jsx-indent": [2, 4],
-    "react/jsx-indent-props": [2, 4],
-    "spaced-comment": ["error", "always", { "markers": ["/"] }]
-  },
-  "env": {
-    "browser": true
-  }
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "project": ["./tsconfig.json"]
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "preact",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "plugin:jsx-a11y/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "rules": {
+        "@typescript-eslint/indent": 0,
+        "@typescript-eslint/camelcase": 0,
+        "func-names": 0,
+        "import/extensions": 0,
+        "jsx-quotes": ["error", "prefer-double"],
+        "max-len": 0,
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
+        "no-irregular-whitespace": [
+            "error",
+            {
+                "skipStrings": true,
+                "skipComments": true,
+                "skipRegExps": true,
+                "skipTemplates": true
+            }
+        ],
+        "no-plusplus": 0,
+        "no-underscore-dangle": 0,
+        "react/jsx-indent": [2, 4],
+        "react/jsx-indent-props": [2, 4],
+        "spaced-comment": ["error", "always", { "markers": ["/"] }],
+        "import/order": [
+            "error",
+            {
+                "groups": [["builtin", "external", "internal"]]
+            }
+        ],
+        "sort-imports": [
+            "error",
+            {
+                "ignoreCase": false,
+                "ignoreDeclarationSort": true,
+                "ignoreMemberSort": false
+            }
+        ]
+    },
+    "env": {
+        "browser": true
+    }
 }

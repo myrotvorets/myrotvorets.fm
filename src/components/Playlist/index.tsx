@@ -1,4 +1,4 @@
-import { Component, ComponentChild, h, createRef, RefObject } from 'preact';
+import { Component, ComponentChild, RefObject, createRef, h } from 'preact';
 import MatchedText from '../MatchedText';
 import { debounce } from '../../utils';
 import VirtualList from '../VirtualList/index';
@@ -172,12 +172,11 @@ export default class Playlist extends Component<Props, State> {
         return (
             <div className="playlist" role="main" aria-label="Список відтворення">
                 <input
-                    type="text"
+                    type="search"
                     value={filter}
                     onInput={this._onFilterChanged}
                     placeholder="Шукати…"
                     aria-label="Пошук"
-                    role="search"
                 />
                 {filtered.length ? (
                     <VirtualList
@@ -192,7 +191,12 @@ export default class Playlist extends Component<Props, State> {
                     />
                 ) : (
                     <p>
-                        <strong>Нічого не знайдено 😢</strong>
+                        <strong>
+                            Нічого не знайдено{' '}
+                            <span role="img" aria-label="на жаль">
+                                😢
+                            </span>
+                        </strong>
                     </p>
                 )}
             </div>
