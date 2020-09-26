@@ -17,27 +17,57 @@
         "plugin:prettier/recommended"
     ],
     "rules": {
-        "@typescript-eslint/indent": 0,
-        "@typescript-eslint/camelcase": 0,
-        "func-names": 0,
-        "import/extensions": 0,
+        "react/jsx-indent": [2, 4],
         "jsx-quotes": ["error", "prefer-double"],
-        "max-len": 0,
-        "no-console": ["warn", { "allow": ["warn", "error"] }],
-        "no-irregular-whitespace": [
+        "react/jsx-indent-props": [2, 4],
+        "react/sort-comp": [
             "error",
             {
-                "skipStrings": true,
-                "skipComments": true,
-                "skipRegExps": true,
-                "skipTemplates": true
+                "order": [
+                    "static-methods",
+                    "instance-variables",
+                    "lifecycle",
+                    "/^_?on.+$/",
+                    "getters",
+                    "setters",
+                    "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
+                    "instance-methods",
+                    "everything-else",
+                    "rendering"
+                ],
+                "groups": {
+                    "lifecycle": [
+                        "displayName",
+                        "propTypes",
+                        "contextTypes",
+                        "childContextTypes",
+                        "mixins",
+                        "statics",
+                        "defaultProps",
+                        "constructor",
+                        "getDefaultProps",
+                        "getInitialState",
+                        "state",
+                        "getChildContext",
+                        "getDerivedStateFromProps",
+                        "componentWillMount",
+                        "UNSAFE_componentWillMount",
+                        "componentDidMount",
+                        "componentWillReceiveProps",
+                        "UNSAFE_componentWillReceiveProps",
+                        "shouldComponentUpdate",
+                        "componentWillUpdate",
+                        "UNSAFE_componentWillUpdate",
+                        "getSnapshotBeforeUpdate",
+                        "componentDidUpdate",
+                        "componentDidCatch",
+                        "componentWillUnmount",
+                        "componentDidCatch"
+                    ],
+                    "rendering": ["/^_?render.+$/", "render"]
+                }
             }
         ],
-        "no-plusplus": 0,
-        "no-underscore-dangle": 0,
-        "react/jsx-indent": [2, 4],
-        "react/jsx-indent-props": [2, 4],
-        "spaced-comment": ["error", "always", { "markers": ["/"] }],
         "import/order": [
             "error",
             {
@@ -51,7 +81,18 @@
                 "ignoreDeclarationSort": true,
                 "ignoreMemberSort": false
             }
-        ]
+        ],
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
+        "no-irregular-whitespace": [
+            "error",
+            {
+                "skipStrings": true,
+                "skipComments": true,
+                "skipRegExps": true,
+                "skipTemplates": true
+            }
+        ],
+        "spaced-comment": ["error", "always", { "markers": ["/"] }]
     },
     "env": {
         "browser": true

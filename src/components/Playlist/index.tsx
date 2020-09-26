@@ -36,6 +36,16 @@ export default class Playlist extends Component<Props, State> {
 
     private _listRef: RefObject<VirtualList<PlaylistEntry>> = createRef();
 
+    private _filterList = debounce((filter: string): void => {
+        const { playlist } = this.state;
+        if (filter.length >= 2) {
+            const filtered = (playlist as PlaylistEntry[]).filter(this.filterPlaylist, filter);
+            this.setState({ filter, filtered });
+        } else {
+            this.setState({ filtered: playlist || [], filter });
+        }
+    }, 250);
+
     public async componentDidMount(): Promise<void> {
         try {
             const response = await fetch(playlistURL);
@@ -50,16 +60,16 @@ export default class Playlist extends Component<Props, State> {
         }
     }
 
-    private _onPlaylistfetchError(): void {
-        this.setState({ playlist: null });
-        this.props.onPlaylistLoaded?.(null);
-    }
-
     public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {
         if (prevProps.active !== this.props.active || prevState.playlist?.length !== this.state.playlist?.length) {
             const n = this.state.filtered.findIndex((e) => e.id === this.props.active);
             this._listRef.current?.scrollTo(n);
         }
+    }
+
+    private _onPlaylistfetchError(): void {
+        this.setState({ playlist: null });
+        this.props.onPlaylistLoaded?.(null);
     }
 
     private _onEntryClicked = (e: MouseEvent): void => {
@@ -73,16 +83,6 @@ export default class Playlist extends Component<Props, State> {
             }
         }
     };
-
-    private _filterList = debounce((filter: string): void => {
-        const { playlist } = this.state;
-        if (filter.length >= 2) {
-            const filtered = (playlist as PlaylistEntry[]).filter(this.filterPlaylist, filter);
-            this.setState({ filter, filtered });
-        } else {
-            this.setState({ filtered: playlist || [], filter });
-        }
-    }, 250);
 
     private _onFilterChanged = (e: h.JSX.TargetedEvent<HTMLInputElement>): void => {
         const filter = e.currentTarget.value;

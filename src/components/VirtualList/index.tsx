@@ -66,13 +66,13 @@ export default class VirtualList<T = any> extends Component<
         this._onResizeHandler = throttleWithRAF(this._onResizeHandler);
     }
 
-    public componentDidUpdate(): void {
-        this._onResizeHandler();
-    }
-
     public componentDidMount(): void {
         this._onResizeHandler();
         window.addEventListener('resize', this._onResizeHandler);
+    }
+
+    public componentDidUpdate(): void {
+        this._onResizeHandler();
     }
 
     public componentWillUnmount(): void {
