@@ -43,13 +43,16 @@ export default class Playlist extends Component<Props, State> {
                 const text = await response.text();
                 this.parsePlaylist(text);
             } else {
-                this.setState({ playlist: null });
-                this.props.onPlaylistLoaded?.(null);
+                this._onPlaylistfetchError();
             }
         } catch (e) {
-            this.setState({ playlist: null });
-            this.props.onPlaylistLoaded?.(null);
+            this._onPlaylistfetchError();
         }
+    }
+
+    private _onPlaylistfetchError(): void {
+        this.setState({ playlist: null });
+        this.props.onPlaylistLoaded?.(null);
     }
 
     public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {

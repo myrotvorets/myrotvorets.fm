@@ -11,8 +11,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "standard-preact",
-    "airbnb-typescript/base",
+    "preact",
     "plugin:prettier/recommended"
   ],
   "rules": {
@@ -20,9 +19,6 @@
     "@typescript-eslint/camelcase": 0,
     "func-names": 0,
     "import/extensions": 0,
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": true
-    }],
     "jsx-quotes": ["error", "prefer-double"],
     "max-len": 0,
     "no-console": ["warn", { "allow": ["warn", "error"] }],

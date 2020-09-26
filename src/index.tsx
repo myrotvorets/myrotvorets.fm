@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-/* eslint-disable import/first, global-require */
+/* eslint-disable global-require */
 
 if (process.env.NODE_ENV === 'development') {
     require('preact/debug');
