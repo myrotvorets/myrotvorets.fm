@@ -92,7 +92,7 @@ export default class Player extends Component<Props, State> {
         }
     }
 
-    private _onPlayClicked = (): void => {
+    private readonly _onPlayClicked = (): void => {
         const { current, playlist } = this.props;
         const { unlocked } = this.state;
         const entry = playlist[current];
@@ -117,7 +117,7 @@ export default class Player extends Component<Props, State> {
         this._howl.play();
     };
 
-    private _step = (): void => {
+    private readonly _step = (): void => {
         if (this._howl) {
             const position = +this._howl.seek() || 0;
             const duration = this._howl.duration();
@@ -134,15 +134,15 @@ export default class Player extends Component<Props, State> {
         }
     };
 
-    private _onPauseClicked = (): void => {
+    private readonly _onPauseClicked = (): void => {
         this._howl?.pause();
     };
 
-    private _onStopClicked = (): void => {
+    private readonly _onStopClicked = (): void => {
         this._howl?.stop();
     };
 
-    private _onPrevClicked = (): void => {
+    private readonly _onPrevClicked = (): void => {
         const { current, onSongChanged, playlist, repeat } = this.props;
 
         const position = this._order.indexOf(current);
@@ -153,7 +153,7 @@ export default class Player extends Component<Props, State> {
         }
     };
 
-    private _onNextClicked = (): void => {
+    private readonly _onNextClicked = (): void => {
         const { current, onSongChanged, playlist, repeat } = this.props;
 
         const position = this._order.indexOf(current);
@@ -164,24 +164,24 @@ export default class Player extends Component<Props, State> {
         }
     };
 
-    private _onMuteClicked = (): unknown => this.setState(({ muted }) => ({ muted: !muted }));
+    private readonly _onMuteClicked = (): unknown => this.setState(({ muted }) => ({ muted: !muted }));
 
-    private _onVolumeDownClicked = (): unknown =>
+    private readonly _onVolumeDownClicked = (): unknown =>
         this.props.onVolumeChanged?.(this.props.volume < 0.05 ? 0 : this.props.volume - 0.05);
 
-    private _onVolumeUpClicked = (): unknown =>
+    private readonly _onVolumeUpClicked = (): unknown =>
         this.props.onVolumeChanged?.(this.props.volume > 0.95 ? 1 : this.props.volume + 0.05);
 
-    private _onRepeatListClicked = (): unknown => this.props.onRepeatChanged?.(!this.props.repeat);
+    private readonly _onRepeatListClicked = (): unknown => this.props.onRepeatChanged?.(!this.props.repeat);
 
-    private _onShuffleListClicked = (): unknown => this.props.onShuffleChanged?.(!this.props.shuffle);
+    private readonly _onShuffleListClicked = (): unknown => this.props.onShuffleChanged?.(!this.props.shuffle);
 
-    private _onVolumeChanged = ({ currentTarget }: h.JSX.TargetedEvent<HTMLInputElement>): void => {
+    private readonly _onVolumeChanged = ({ currentTarget }: h.JSX.TargetedEvent<HTMLInputElement>): void => {
         const { valueAsNumber } = currentTarget;
         this.props.onVolumeChanged?.(valueAsNumber / 100);
     };
 
-    private _onPositionChanged = ({ currentTarget }: h.JSX.TargetedEvent<HTMLInputElement>): void => {
+    private readonly _onPositionChanged = ({ currentTarget }: h.JSX.TargetedEvent<HTMLInputElement>): void => {
         const { valueAsNumber } = currentTarget;
 
         if (this._howl && this._howl.playing()) {
@@ -189,18 +189,18 @@ export default class Player extends Component<Props, State> {
         }
     };
 
-    private _onPauseHandler = (): unknown => this.setState({ state: 'paused' });
+    private readonly _onPauseHandler = (): unknown => this.setState({ state: 'paused' });
 
-    private _onPlayHandler = (): void => {
+    private readonly _onPlayHandler = (): void => {
         this.setState({ state: 'playing', loading: false });
         requestAnimationFrame(this._step);
     };
 
-    private _onStopHandler = (): unknown => this.setState({ state: 'paused', time: formatTime(0) });
+    private readonly _onStopHandler = (): unknown => this.setState({ state: 'paused', time: formatTime(0) });
 
-    private _onSeekHandler = (): unknown => requestAnimationFrame(this._step);
+    private readonly _onSeekHandler = (): unknown => requestAnimationFrame(this._step);
 
-    private _onErrorHandler = (_: unknown, e: unknown): void => {
+    private readonly _onErrorHandler = (_: unknown, e: unknown): void => {
         this.setState({ loading: false, state: 'paused' });
         this.props.onError?.(e);
     };
@@ -234,7 +234,7 @@ export default class Player extends Component<Props, State> {
         }
     }
 
-    private _makeOrder() {
+    private _makeOrder(): void {
         const { playlist, shuffle } = this.props;
         const order: number[] = [];
 

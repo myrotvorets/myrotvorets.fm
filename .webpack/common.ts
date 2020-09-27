@@ -55,7 +55,7 @@ export default function (htmlFile: string): webpack.Configuration {
         module: {
             rules: [
                 {
-                    test: /\.svg$/,
+                    test: /\.svg$/u,
                     loader: 'url-loader',
                     options: {
                         name: '[name].[contenthash:5].[ext]',
@@ -63,7 +63,7 @@ export default function (htmlFile: string): webpack.Configuration {
                     },
                 },
                 {
-                    test: /\.(png|webp)$/,
+                    test: /\.(png|webp)$/u,
                     loader: 'file-loader',
                     options: {
                         name: '[name].[contenthash:5].[ext]',
@@ -71,8 +71,8 @@ export default function (htmlFile: string): webpack.Configuration {
                     },
                 },
                 {
-                    test: /\.json$/,
-                    issuer: /\.ejs$/,
+                    test: /\.json$/u,
+                    issuer: /\.ejs$/u,
                     type: 'javascript/auto',
                     use: [
                         {
@@ -94,7 +94,6 @@ export default function (htmlFile: string): webpack.Configuration {
         },
         plugins: [
             new CleanWebpackPlugin(),
-            new webpack.NoEmitOnErrorsPlugin(),
             new webpack.DefinePlugin({
                 'process.env.APP_VERSION': JSON.stringify(version),
             }),

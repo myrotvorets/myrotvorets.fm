@@ -23,20 +23,27 @@ if (!process.env.BUILD_SSR) {
     if (
         'serviceWorker' in navigator &&
         process.env.NODE_ENV === 'production' &&
-        !/^(127|192\.168|10)\./.test(window.location.hostname)
+        !/^(127|192\.168|10)\./u.test(window.location.hostname)
     ) {
-        navigator.serviceWorker.register('sw.js').then((reg) => {
-            reg.addEventListener('updatefound', () => {
-                const installingWorker = reg.installing;
-                if (installingWorker) {
-                    installingWorker.addEventListener('statechange', () => {
-                        if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            reg.update();
-                        }
-                    });
-                }
+        navigator.serviceWorker
+            .register('sw.js')
+            .then((reg) => {
+                reg.addEventListener('updatefound', () => {
+                    const installingWorker = reg.installing;
+                    if (installingWorker) {
+                        installingWorker.addEventListener('statechange', () => {
+                            if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                reg.update().catch(() => {
+                                    /* Do nothing */
+                                });
+                            }
+                        });
+                    }
+                });
+            })
+            .catch(() => {
+                /* Do nothing */
             });
-        });
     }
 
     (document.getElementById('version') as HTMLElement).addEventListener('click', () => {
@@ -50,25 +57,27 @@ if (!process.env.BUILD_SSR) {
                             .getRegistration()
                             .then((reg) => {
                                 if (reg) {
-                                    reg.unregister().then(() => self.location.reload(true));
+                                    reg.unregister()
+                                        .then(() => self.location.reload())
+                                        .catch((e) => console.error(e));
                                 } else {
-                                    self.location.reload(true);
+                                    self.location.reload();
                                 }
                             })
                             .catch((e) => {
                                 console.error(e);
-                                self.location.reload(true);
+                                self.location.reload();
                             });
                     } else {
-                        self.location.reload(true);
+                        self.location.reload();
                     }
                 })
                 .catch((e) => {
                     console.error(e);
-                    self.location.reload(true);
+                    self.location.reload();
                 });
         } else {
-            self.location.reload(true);
+            self.location.reload();
         }
     });
 }

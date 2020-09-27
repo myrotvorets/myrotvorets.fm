@@ -10,7 +10,7 @@ export default function MatchedText({ text, filter }: Props): h.JSX.Element {
         return <Fragment>{text}</Fragment>;
     }
 
-    const re = new RegExp(`(${filter.replace(/[/\\^$*+?.()|[\]{}-]/g, '\\$&')})`, 'i');
+    const re = new RegExp(`(${filter.replace(/[/\\^$*+?.()|[\]{}-]/gu, '\\$&')})`, 'iu');
     const parts = text.split(re);
     return (
         <Fragment>
