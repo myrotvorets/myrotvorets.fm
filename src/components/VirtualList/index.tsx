@@ -79,14 +79,14 @@ export default class VirtualList<T = any> extends Component<
         window.removeEventListener('resize', this._onResizeHandler);
     }
 
-    private _onResizeHandler = (): void => {
+    private readonly _onResizeHandler = (): void => {
         const base = this.base as HTMLElement;
         if (this.state.height !== base.offsetHeight) {
             this.setState({ height: base.offsetHeight });
         }
     };
 
-    private _onScrollHandler = (): void => {
+    private readonly _onScrollHandler = (): void => {
         const base = this.base as HTMLElement;
         this.setState({ offset: base.scrollTop });
     };

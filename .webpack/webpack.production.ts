@@ -19,8 +19,8 @@ export default function (): webpack.Configuration {
             rules: [
                 {
                     enforce: 'pre',
-                    test: /\.tsx?$/,
-                    exclude: /node_modules/,
+                    test: /\.tsx?$/u,
+                    exclude: /node_modules/u,
                     use: {
                         loader: 'babel-loader',
                     },
