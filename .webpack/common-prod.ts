@@ -21,7 +21,7 @@ export default function (): webpack.Configuration {
         module: {
             rules: [
                 {
-                    test: /\.s?css$/,
+                    test: /\.s?css$/u,
                     loaders: [
                         MiniCssExtractPlugin.loader,
                         {
@@ -76,14 +76,13 @@ export default function (): webpack.Configuration {
             }),
             new InjectManifest({
                 swSrc: './src/sw.ts',
-                include: ['index.html', /\.js$/, /\.svg$/, /\.css$/, /\.webp$/],
+                include: ['index.html', /\.js$/u, /\.svg$/u, /\.css$/u, /\.webp$/u],
                 excludeChunks: ['runtime', 'polyfills'],
                 // @ts-ignore
-                dontCacheBustURLsMatching: /\.[0-9a-f]{5}\./,
+                dontCacheBustURLsMatching: /\.[0-9a-f]{5}\./u,
             }),
             new ServiceWorkerPlugin(),
             new webpack.HashedModuleIdsPlugin(),
-            new webpack.optimize.ModuleConcatenationPlugin(),
             new PurgecssPlugin({
                 paths: glob.sync(`${path.join(__dirname, '../src')}/**/*`, {
                     nodir: true,

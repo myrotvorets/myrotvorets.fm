@@ -24,7 +24,7 @@ registerRoute(
 );
 
 registerRoute(
-    /^https:\/\/psb4ukr\.natocdn\.net\/mp3\/playlist\.txt/,
+    /^https:\/\/psb4ukr\.natocdn\.net\/mp3\/playlist\.txt/u,
     new StaleWhileRevalidate({
         cacheName: 'playlist-cache',
         plugins: [
@@ -38,10 +38,8 @@ registerRoute(
     }),
 );
 
-// eslint-disable-next-line no-undef
 declare let self: ServiceWorkerGlobalScope;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const manifest = [].concat((self as any).__WB_MANIFEST || []);
+const manifest = self.__WB_MANIFEST;
 precacheAndRoute(manifest, {});
 
 setCatchHandler(({ request }) => {

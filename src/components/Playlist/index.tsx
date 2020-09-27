@@ -34,11 +34,12 @@ export default class Playlist extends Component<Props, State> {
         filter: '',
     };
 
-    private _listRef: RefObject<VirtualList<PlaylistEntry>> = createRef();
+    private readonly _listRef: RefObject<VirtualList<PlaylistEntry>> = createRef();
 
-    private _filterList = debounce((filter: string): void => {
+    private readonly _filterList = debounce((filter: string): void => {
         const { playlist } = this.state;
         if (filter.length >= 2) {
+            // eslint-disable-next-line @typescript-eslint/unbound-method
             const filtered = (playlist as PlaylistEntry[]).filter(this.filterPlaylist, filter);
             this.setState({ filter, filtered });
         } else {
@@ -72,7 +73,7 @@ export default class Playlist extends Component<Props, State> {
         this.props.onPlaylistLoaded?.(null);
     }
 
-    private _onEntryClicked = (e: MouseEvent): void => {
+    private readonly _onEntryClicked = (e: MouseEvent): void => {
         const { onSongClicked } = this.props;
 
         if (onSongClicked !== undefined && e.target) {
@@ -84,15 +85,15 @@ export default class Playlist extends Component<Props, State> {
         }
     };
 
-    private _onFilterChanged = (e: h.JSX.TargetedEvent<HTMLInputElement>): void => {
+    private readonly _onFilterChanged = (e: h.JSX.TargetedEvent<HTMLInputElement>): void => {
         const filter = e.currentTarget.value;
         this._filterList(filter);
     };
 
     private parsePlaylist(text: string): void {
         const items = text
-            .replace(/^\ufeff/, '')
-            .replace(/\r/, '')
+            .replace(/^\ufeff/u, '')
+            .replace(/\r/u, '')
             .split('\n');
 
         let id = 0;
@@ -102,7 +103,7 @@ export default class Playlist extends Component<Props, State> {
                 if (parts.length === 3) {
                     return {
                         id: id++,
-                        artist: parts[0].replace(/^_/, ''),
+                        artist: parts[0].replace(/^_/u, ''),
                         title: parts[1],
                         url: `${baseURL}${parts[2]}`,
                     };
@@ -122,7 +123,7 @@ export default class Playlist extends Component<Props, State> {
         return artist.toLocaleLowerCase().indexOf(filter) !== -1 || title.toLocaleLowerCase().indexOf(filter) !== -1;
     }
 
-    private _renderPlaylistEntry = ({ id, artist, title }: PlaylistEntry): ComponentChild => {
+    private readonly _renderPlaylistEntry = ({ id, artist, title }: PlaylistEntry): ComponentChild => {
         const { active } = this.props;
         const { filter } = this.state;
 

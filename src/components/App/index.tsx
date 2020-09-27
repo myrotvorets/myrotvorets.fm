@@ -59,20 +59,20 @@ export default class App extends Component<unknown, State> {
         }
     }
 
-    private _onPlaylistLoaded = (playlist: PlaylistEntry[] | null): unknown => this.setState({ playlist });
+    private readonly _onPlaylistLoaded = (playlist: PlaylistEntry[] | null): unknown => this.setState({ playlist });
 
-    private _onSongClicked = (id: number): unknown => this.setState({ active: id, unlocked: true });
+    private readonly _onSongClicked = (id: number): unknown => this.setState({ active: id, unlocked: true });
 
-    private _onSongChanged = (id: number): unknown => this.setState({ active: id });
+    private readonly _onSongChanged = (id: number): unknown => this.setState({ active: id });
 
-    private _onShuffleChanged = (v: boolean): unknown => this.setState({ shuffle: v });
+    private readonly _onShuffleChanged = (v: boolean): unknown => this.setState({ shuffle: v });
 
-    private _onRepeatChanged = (v: boolean): unknown => this.setState({ repeat: v });
+    private readonly _onRepeatChanged = (v: boolean): unknown => this.setState({ repeat: v });
 
-    private _onVolumeChanged = (v: number): unknown => this.setState({ volume: v });
+    private readonly _onVolumeChanged = (v: number): unknown => this.setState({ volume: v });
 
     // !TODO
-    private _onError = (e: unknown): unknown => console.error(e);
+    private readonly _onError = (e: unknown): unknown => console.error(e);
 
     private _updateTitle(): void {
         const { active, playlist } = this.state;
