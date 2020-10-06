@@ -64,7 +64,7 @@
     "null-loader": "^4.0.0",
     "postcss": "^8.1.1",
     "postcss-loader": "^4.0.3",
-    "preact": "^10.5.3",
+    "preact": "^10.5.4",
     "preact-render-to-string": "^5.1.10",
     "prettier": "^2.1.2",
     "promise-polyfill": "^8.1.3",
