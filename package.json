@@ -60,7 +60,7 @@
     "hwp-csp-plugin": "^1.1.0",
     "hwp-inline-runtime-chunk-plugin": "^1.0.2",
     "isomorphic-unfetch": "^3.1.0",
-    "mini-css-extract-plugin": "^1.0.0",
+    "mini-css-extract-plugin": "^1.1.1",
     "node-sass": "^4.14.1",
     "null-loader": "^4.0.1",
     "postcss": "^8.1.1",
