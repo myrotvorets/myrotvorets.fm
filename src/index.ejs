@@ -10,6 +10,12 @@
 <link rel="icon" type="image/png" href="<%= require('./images/logo32.png') %>"/>
 <link rel="apple-touch-icon" href="<%= require('./images/logo192w.png') %>"/>
 <link rel="manifest" href="<%= require('./manifest.json') %>" />
+<meta property="og:title" content="Myrotvorets.FM"/>
+<meta property="og:site_name" content="Myrotvorets.FM"/>
+<meta property="og:url" content="https://myrotvorets.center/player/">
+<meta property="og:description" content="Радіо «Миротворець»"/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://myrotvorets.center/player/<%= require('./images/header-og.png') %>"/>
 <style>
 <%= require('!!css-loader?esModule=false!sass-loader!./components/App/app.scss') %>
 </style>
