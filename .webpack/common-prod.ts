@@ -76,7 +76,7 @@ export default function (): webpack.Configuration {
             }),
             new InjectManifest({
                 swSrc: './src/sw.ts',
-                include: ['index.html', /\.js$/u, /\.svg$/u, /\.css$/u, /\.webp$/u],
+                include: ['index.html', /\.m?js$/u, /\.svg$/u, /\.css$/u, /\.webp$/u],
                 excludeChunks: ['runtime', 'polyfills'],
                 // @ts-ignore
                 dontCacheBustURLsMatching: /\.[0-9a-f]{5}\./u,
