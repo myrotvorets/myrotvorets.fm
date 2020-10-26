@@ -45,7 +45,7 @@
     "cssnano": "^4.1.10",
     "eslint": "^7.11.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-jsx-a11y": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-sonarjs": "^0.5.0",
     "extract-loader": "^5.1.0",
