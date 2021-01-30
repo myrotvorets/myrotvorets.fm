@@ -12,7 +12,7 @@ export default function (): webpack.Configuration {
         },
         output: {
             path: path.resolve(__dirname, '../dist'),
-            filename: '[name].[hash:5].min.js',
+            filename: '[name].[fullhash:5].min.js',
             chunkFilename: '[name].[chunkhash:5].min.js',
         },
         module: {

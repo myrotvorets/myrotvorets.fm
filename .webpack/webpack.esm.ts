@@ -10,9 +10,9 @@ export default function (): webpack.Configuration {
     return merge(commonConfig('index.html'), commonProdConfig(), {
         output: {
             path: path.resolve(__dirname, '../dist-esm'),
-            filename: '[name].[hash:5].min.mjs',
+            filename: '[name].[fullhash:5].min.mjs',
             chunkFilename: '[name].[chunkhash:5].min.mjs',
-            jsonpScriptType: 'module',
+            scriptType: 'module',
             globalObject: 'self',
         },
         module: {
@@ -70,13 +70,13 @@ export default function (): webpack.Configuration {
                     terserOptions: {
                         output: {
                             comments: false,
-                            ecma: 8,
+                            ecma: 2017,
                             safari10: true,
                         },
                         sourceMap: true,
                         mangle: true,
                         compress: {
-                            ecma: 8,
+                            ecma: 2017,
                             module: true,
                             keep_fargs: false,
                             pure_getters: true,

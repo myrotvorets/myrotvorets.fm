@@ -8,7 +8,6 @@ import SriPlugin from 'webpack-subresource-integrity';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { HwpInlineRuntimeChunkPlugin } from 'hwp-inline-runtime-chunk-plugin';
 import { HwpCspPlugin } from 'hwp-csp-plugin';
-import ServiceWorkerPlugin from './ServiceWorkerPlugin';
 
 export default function (): webpack.Configuration {
     return {
@@ -22,7 +21,7 @@ export default function (): webpack.Configuration {
             rules: [
                 {
                     test: /\.s?css$/u,
-                    loaders: [
+                    use: [
                         MiniCssExtractPlugin.loader,
                         {
                             loader: 'css-loader',
@@ -56,6 +55,7 @@ export default function (): webpack.Configuration {
                 'process.env.BUILD_SSR': JSON.stringify(false),
             }),
             new HwpInlineRuntimeChunkPlugin({ removeSourceMap: true }),
+            // @ts-ignore
             new SriPlugin({ hashFuncNames: ['sha384'] }),
             new HwpCspPlugin({
                 policy: {
@@ -76,13 +76,11 @@ export default function (): webpack.Configuration {
             }),
             new InjectManifest({
                 swSrc: './src/sw.ts',
+                compileSrc: true,
                 include: ['index.html', /\.m?js$/u, /\.svg$/u, /\.css$/u, /\.webp$/u],
                 excludeChunks: ['runtime', 'polyfills'],
-                // @ts-ignore
                 dontCacheBustURLsMatching: /\.[0-9a-f]{5}\./u,
             }),
-            new ServiceWorkerPlugin(),
-            new webpack.HashedModuleIdsPlugin(),
             new PurgecssPlugin({
                 paths: glob.sync(`${path.join(__dirname, '../src')}/**/*`, {
                     nodir: true,
@@ -94,7 +92,7 @@ export default function (): webpack.Configuration {
             }),
         ],
         optimization: {
-            moduleIds: 'hashed',
+            moduleIds: 'deterministic',
             minimize: true,
             runtimeChunk: 'single',
         },

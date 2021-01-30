@@ -29,7 +29,7 @@ export default function (): webpack.Configuration {
                 },
                 {
                     test: /\.s?css$/u,
-                    loaders: ['style-loader', 'css-loader', 'sass-loader'],
+                    use: ['style-loader', 'css-loader', 'sass-loader'],
                 },
             ],
         },

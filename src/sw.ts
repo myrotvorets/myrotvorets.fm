@@ -44,7 +44,7 @@ precacheAndRoute(manifest, {});
 
 setCatchHandler(({ request }) => {
     if (typeof request !== 'string' && request.mode === 'navigate') {
-        const key = getCacheKeyForURL('/index.html');
+        const key = getCacheKeyForURL('index.html');
         if (key) {
             return caches.match(key) as Promise<Response>;
         }
