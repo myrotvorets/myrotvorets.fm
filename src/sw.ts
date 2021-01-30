@@ -15,6 +15,9 @@ registerRoute(
     new NetworkFirst({
         cacheName: cacheNames.precache,
         networkTimeoutSeconds: 5,
+        matchOptions: {
+            ignoreSearch: true,
+        },
         plugins: [
             new CacheableResponsePlugin({
                 statuses: [200],
@@ -27,6 +30,9 @@ registerRoute(
     /^https:\/\/psb4ukr\.natocdn\.net\/mp3\/playlist\.txt/u,
     new StaleWhileRevalidate({
         cacheName: 'playlist-cache',
+        matchOptions: {
+            ignoreSearch: true,
+        },
         plugins: [
             new CacheableResponsePlugin({
                 statuses: [200],
