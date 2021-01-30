@@ -15,7 +15,7 @@ export default function (): webpack.Configuration {
             chunkFilename: '[name].[chunkhash:5].js',
             pathinfo: true,
         },
-        devtool: 'cheap-eval-source-map',
+        devtool: 'eval-cheap-source-map',
         mode: 'development',
         module: {
             rules: [
