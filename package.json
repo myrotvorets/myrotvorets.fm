@@ -81,7 +81,7 @@
     "webpack-merge": "^5.7.3",
     "webpack-subresource-integrity": "^1.5.2",
     "workbox-cacheable-response": "^6.1.0",
-    "workbox-core": "^6.1.0",
+    "workbox-core": "^6.1.1",
     "workbox-expiration": "^6.1.0",
     "workbox-precaching": "^6.1.0",
     "workbox-routing": "^6.1.0",
