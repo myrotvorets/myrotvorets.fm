@@ -4,7 +4,7 @@
   "private": true,
   "description": "https://myrotvorets.center/player/",
   "scripts": {
-    "dev": "webpack-dev-server",
+    "dev": "webpack serve",
     "build": "webpack --mode=production",
     "postbuild": "rm -rf build; mkdir build; cp -Ra dist/* build; cp -Raf dist-esm/* build; rm -f build/runtime.*.mjs build/runtime.*.js",
     "lint": "eslint .",
