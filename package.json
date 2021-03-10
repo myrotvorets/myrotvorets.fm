@@ -31,7 +31,6 @@
     "@types/tapable": "^1.0.6",
     "@types/terser-webpack-plugin": "^5.0.2",
     "@types/webpack-dev-server": "^3.11.1",
-    "@types/webpack-merge": "^4.1.5",
     "@types/webpack-subresource-integrity": "^1.2.0",
     "@types/workbox-webpack-plugin": "^5.1.5",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
