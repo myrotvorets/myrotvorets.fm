@@ -15,7 +15,6 @@ jobs:
         node:
           - '12'
           - '14'
-          - '16'
     name: Build (Node ${{ matrix.node }})
     steps:
       - name: Check out the code
@@ -25,7 +24,6 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node }}
-          registry-url: https://npm.pkg.github.com
 
       - name: Update npm
         run: npm i -g npm@latest

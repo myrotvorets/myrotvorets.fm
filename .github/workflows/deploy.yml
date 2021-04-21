@@ -2,61 +2,81 @@ name: Deployment
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - run: git fetch --unshallow --tags
+      - name: Check out the source code
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2.1.5
-      with:
-        node-version: 12
-        registry-url: https://npm.pkg.github.com
+      - name: Retrieve tags
+        run: git fetch --unshallow --tags
 
-    - name: Install dependencies
-      run: npm ci
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14
 
-    - name: Build
-      run: npm run build
+      - name: Update npm
+        run: npm i -g npm@latest
 
-    - name: Save artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        path: ./build/
-        name: build
+      - name: Cache Node modules
+        uses: actions/cache@v2.1.5
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
 
-    - name: Start deployment
-      uses: chrnorm/deployment-action@v1.2.0
-      id: deployment
-      with:
-        token: "${{ github.token }}"
-        environment: production
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Deploy
-      env:
-        DEPLOY_TARGET: ${{ secrets.DEPLOY_TARGET }}
-        RSYNC_PASSWORD: ${{ secrets.RSYNC_PASSWORD }}
-      run: rsync -avHz --ignore-times build/ $DEPLOY_TARGET
+      - name: Run postinstall scripts
+        run: npm rebuild && npm run prepare --if-present
 
-    - name: Update deployment status (success)
-      if: success()
-      uses: chrnorm/deployment-status@v1.0.0
-      with:
-        token: "${{ github.token }}"
-        state: "success"
-        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Build
+        run: npm run build
 
-    - name: Update deployment status (failure)
-      if: failure()
-      uses: chrnorm/deployment-status@v1.0.0
-      with:
-        token: "${{ github.token }}"
-        state: "failure"
-        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Save artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./build/
+          name: build
+
+      - name: Start deployment
+        uses: chrnorm/deployment-action@v1.2.0
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          environment: production
+
+      - name: Deploy
+        env:
+          DEPLOY_TARGET: ${{ secrets.DEPLOY_TARGET }}
+          RSYNC_PASSWORD: ${{ secrets.RSYNC_PASSWORD }}
+        run: rsync -avHz --ignore-times build/ $DEPLOY_TARGET
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v1.0.0
+        with:
+          token: "${{ github.token }}"
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v1.0.0
+        with:
+          token: "${{ github.token }}"
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
