@@ -27,20 +27,21 @@ if (!process.env.BUILD_SSR) {
     ) {
         navigator.serviceWorker
             .register('sw.js')
-            .then((reg) => {
+            .then((reg) =>
                 reg.addEventListener('updatefound', () => {
                     const installingWorker = reg.installing;
                     if (installingWorker) {
                         installingWorker.addEventListener('statechange', () => {
                             if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // eslint-disable-next-line promise/no-nesting
                                 reg.update().catch(() => {
                                     /* Do nothing */
                                 });
                             }
                         });
                     }
-                });
-            })
+                }),
+            )
             .catch(() => {
                 /* Do nothing */
             });
@@ -53,16 +54,20 @@ if (!process.env.BUILD_SSR) {
                 .then((keyList) => Promise.all(keyList.map((key) => self.caches.delete(key))))
                 .then(() => {
                     if ('serviceWorker' in navigator) {
+                        // eslint-disable-next-line promise/no-nesting
                         navigator.serviceWorker
                             .getRegistration()
                             .then((reg) => {
                                 if (reg) {
+                                    // eslint-disable-next-line promise/no-nesting
                                     reg.unregister()
                                         .then(() => self.location.reload())
                                         .catch((e) => console.error(e));
                                 } else {
                                     self.location.reload();
                                 }
+
+                                return null;
                             })
                             .catch((e) => {
                                 console.error(e);
@@ -71,6 +76,8 @@ if (!process.env.BUILD_SSR) {
                     } else {
                         self.location.reload();
                     }
+
+                    return null;
                 })
                 .catch((e) => {
                     console.error(e);

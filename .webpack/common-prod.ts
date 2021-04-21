@@ -4,7 +4,7 @@ import path from 'path';
 import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import PurgecssPlugin from 'purgecss-webpack-plugin';
-import SriPlugin from 'webpack-subresource-integrity';
+import { SubresourceIntegrityPlugin } from 'webpack-subresource-integrity';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { HwpInlineRuntimeChunkPlugin } from 'hwp-inline-runtime-chunk-plugin';
 import { HwpCspPlugin } from 'hwp-csp-plugin';
@@ -56,7 +56,7 @@ export default function (): webpack.Configuration {
             }),
             new HwpInlineRuntimeChunkPlugin({ removeSourceMap: true }),
             // @ts-ignore
-            new SriPlugin({ hashFuncNames: ['sha384'] }),
+            new SubresourceIntegrityPlugin({ hashFuncNames: ['sha384'] }),
             new HwpCspPlugin({
                 policy: {
                     'block-all-mixed-content': '',
