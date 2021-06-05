@@ -93,7 +93,7 @@ export default class Playlist extends Component<Props, State> {
     private parsePlaylist(text: string): void {
         const items = text
             .replace(/^\ufeff/u, '')
-            .replace(/\r/u, '')
+            .replace(/\r/gu, '')
             .split('\n');
 
         let id = 0;
