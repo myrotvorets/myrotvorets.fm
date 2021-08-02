@@ -53,11 +53,20 @@ export default function (htmlFile: string): webpack.Configuration {
             rules: [
                 {
                     test: /\.svg$/u,
-                    loader: 'url-loader',
-                    options: {
-                        name: '[name].[contenthash:5].[ext]',
-                        esModule: false,
+                    type: 'asset',
+                    parser: {
+                        dataUrlCondition: {
+                            maxSize: 1024,
+                        },
                     },
+                    use: [
+                        {
+                            loader: 'svgo-loader',
+                            options: {
+                                multipass: true,
+                            },
+                        },
+                    ],
                 },
                 {
                     test: /\.(png|webp)$/u,

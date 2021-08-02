@@ -95,6 +95,7 @@ export default function (): webpack.Configuration {
             moduleIds: 'deterministic',
             minimize: true,
             runtimeChunk: 'single',
+            realContentHash: true,
         },
     };
 }

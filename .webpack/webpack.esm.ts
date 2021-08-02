@@ -10,8 +10,8 @@ export default function (): webpack.Configuration {
     return merge(commonConfig('index.html'), commonProdConfig(), {
         output: {
             path: path.resolve(__dirname, '../dist-esm'),
-            filename: '[name].[fullhash:5].min.mjs',
-            chunkFilename: '[name].[chunkhash:5].min.mjs',
+            filename: '[name].[contenthash:5].min.mjs',
+            chunkFilename: '[name].[contenthash:5].min.mjs',
             scriptType: 'module',
             globalObject: 'self',
         },
