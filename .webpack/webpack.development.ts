@@ -5,13 +5,13 @@ import { merge } from 'webpack-merge';
 import commonConfig from './common';
 
 export default function (): webpack.Configuration {
-    return merge(commonConfig('compat.html'), {
+    return merge(commonConfig('index.html'), {
         entry: {
             polyfills: path.resolve(__dirname, '../src/polyfills.js'),
         },
         output: {
             path: path.resolve(__dirname, '../dist'),
-            filename: '[name].[hash:5].js',
+            filename: '[name].[fullhash:5].js',
             chunkFilename: '[name].[chunkhash:5].js',
             pathinfo: true,
         },

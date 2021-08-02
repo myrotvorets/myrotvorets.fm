@@ -12,8 +12,8 @@ export default function (env: Record<string, any>, args: Record<string, any>): w
     if (args.mode && args.mode === 'production') {
         process.env.NODE_ENV = 'production';
         config = [
-            require('./.webpack/webpack.production.ts').default(),
             require('./.webpack/webpack.esm.ts').default(),
+            require('./.webpack/webpack.production.ts').default(),
         ];
     } else {
         process.env.NODE_ENV = 'development';

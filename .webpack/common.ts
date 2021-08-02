@@ -45,12 +45,9 @@ export default function (htmlFile: string): webpack.Configuration {
             headers: {
                 'Access-Control-Allow-Origin': '*',
             },
-            contentBase: path.resolve(__dirname, '../dist'),
             compress: true,
             port: 8081,
-            historyApiFallback: true,
-            writeToDisk: true,
-            disableHostCheck: true,
+            historyApiFallback: false,
         },
         module: {
             rules: [

@@ -37,13 +37,26 @@ export default class App extends Component<unknown, State> {
             if (this.state.volume < 0 || this.state.volume > 1) {
                 this.state.volume = 1;
             }
+
+            const url = new URL(self.location.href);
+            if (url.searchParams.has('songid')) {
+                this.state.active = parseInt(url.searchParams.get('songid') as string, 10) - 1;
+            } else {
+                this._updateTitle();
+                this._updateURL(true);
+            }
         }
+    }
+
+    public componentDidMount(): void {
+        self.addEventListener('popstate', this._onPopStateHandler);
     }
 
     public componentDidUpdate(prevProps: unknown, prevState: Readonly<State>): void {
         if (prevState.active !== this.state.active) {
             this._updateTitle();
             setLSItem('active', `${this.state.active}`);
+            this._updateURL(false);
         }
 
         if (prevState.volume !== this.state.volume) {
@@ -58,6 +71,17 @@ export default class App extends Component<unknown, State> {
             setLSItem('shuffle', this.state.shuffle ? '1' : '');
         }
     }
+
+    public componentWillUnmount(): void {
+        self.removeEventListener('popstate', this._onPopStateHandler);
+    }
+
+    private readonly _onPopStateHandler = (): void => {
+        const url = new URL(location.href);
+        if (url.searchParams.has('songid')) {
+            this.setState({ active: parseInt(url.searchParams.get('songid') as string, 10) - 1 });
+        }
+    };
 
     private readonly _onPlaylistLoaded = (playlist: PlaylistEntry[] | null): unknown => this.setState({ playlist });
 
@@ -78,9 +102,22 @@ export default class App extends Component<unknown, State> {
         const { active, playlist } = this.state;
         if (playlist && playlist[active]) {
             const { artist, title } = playlist[active];
+            // eslint-disable-next-line sonarjs/no-nested-template-literals
             document.title = `${artist ? `${artist} — ` : ''}${title} — Myrotvorets.FM`;
         } else {
             document.title = 'Myrotvorets.FM';
+        }
+    }
+
+    private _updateURL(replace: boolean): void {
+        const url = new URL(self.location.href);
+        if (url.searchParams.get('songid') !== `${this.state.active + 1}`) {
+            url.searchParams.set('songid', `${this.state.active + 1}`);
+            if (replace) {
+                self.history.replaceState(null, document.title, url.href);
+            } else {
+                self.history.pushState(null, document.title, url.href);
+            }
         }
     }
 
