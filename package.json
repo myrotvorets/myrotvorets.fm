@@ -28,7 +28,7 @@
     "@types/howler": "^2.2.1",
     "@types/mini-css-extract-plugin": "^2.0.0",
     "@types/node": "^16.4.0",
-    "@types/webpack-dev-server": "^4.0.3",
+    "@types/webpack-dev-server": "^4.3.0",
     "@types/workbox-webpack-plugin": "^5.1.5",
     "autoprefixer": "^10.2.4",
     "babel-loader": "^8.2.2",
