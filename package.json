@@ -9,7 +9,7 @@
     "postbuild": "rm -rf build; mkdir build; cp -Ra dist/* build; cp -Raf dist-esm/* build; rm -f build/runtime.*.mjs build/runtime.*.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint"
   },
   "keywords": [],
   "author": "Myrotvorets <support@myrotvorets.center> (https://myrotvorets.center/)",
@@ -48,11 +48,9 @@
     "hwp-inline-runtime-chunk-plugin": "^2.0.0",
     "isomorphic-unfetch": "^3.1.0",
     "mini-css-extract-plugin": "^2.0.0",
-    "null-loader": "^4.0.1",
     "postcss": "^8.2.5",
     "postcss-loader": "^6.1.0",
     "preact": "^10.5.12",
-    "preact-render-to-string": "^5.1.12",
     "promise-polyfill": "^8.1.3",
     "purgecss-webpack-plugin": "^4.0.0",
     "ref-loader": "^1.0.3",

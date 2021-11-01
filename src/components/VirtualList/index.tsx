@@ -54,17 +54,15 @@ export default class VirtualList<T = any> extends Component<
     Props<T> & Omit<h.JSX.HTMLAttributes<HTMLDivElement>, 'ref'> & ClassAttributes<VirtualList<T>>,
     State
 > {
-    public state: Readonly<State> = {
-        height: 0,
-        offset: 0,
-    };
-
-    private _firstRender = true;
-
     public constructor() {
         super();
         this._onResizeHandler = throttleWithRAF(this._onResizeHandler);
     }
+
+    public state: Readonly<State> = {
+        height: 0,
+        offset: 0,
+    };
 
     public componentDidMount(): void {
         this._onResizeHandler();
@@ -90,6 +88,8 @@ export default class VirtualList<T = any> extends Component<
         const base = this.base as HTMLElement;
         this.setState({ offset: base.scrollTop });
     };
+
+    private _firstRender = true;
 
     public scrollTo(item: number): void {
         const { rowHeight } = this.props;
@@ -138,7 +138,6 @@ export default class VirtualList<T = any> extends Component<
             selection = items.slice(start, end);
         }
 
-        // eslint-disable-next-line @typescript-eslint/ban-types
         const Inner = container ?? 'div';
 
         return (

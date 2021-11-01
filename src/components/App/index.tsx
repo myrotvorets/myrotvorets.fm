@@ -4,7 +4,7 @@ import Playlist, { PlaylistEntry } from '../Playlist';
 import { setLSItem } from '../../utils';
 
 // This is imported in `index.html` as a critical CSS
-/* import './app.scss'; */
+/* import './app.scss'; */ // NOSONAR
 import './app-loaded.scss';
 
 interface State {
@@ -17,6 +17,26 @@ interface State {
 }
 
 export default class App extends Component<unknown, State> {
+    public constructor(props: unknown) {
+        super(props);
+
+        this.state.repeat = !!(window.localStorage.getItem('repeat') ?? true);
+        this.state.shuffle = !!(window.localStorage.getItem('shuffle') ?? false);
+        this.state.volume = parseFloat(window.localStorage.getItem('volume') ?? '1') || 1;
+        this.state.active = parseInt(window.localStorage.getItem('active') ?? '0', 10) || 0;
+        if (this.state.volume < 0 || this.state.volume > 1) {
+            this.state.volume = 1;
+        }
+
+        const url = new URL(self.location.href);
+        if (url.searchParams.has('songid')) {
+            this.state.active = parseInt(url.searchParams.get('songid') as string, 10) - 1 || 0;
+        } else {
+            this._updateTitle();
+            this._updateURL(true);
+        }
+    }
+
     public state: State = {
         playlist: null,
         active: -1,
@@ -25,28 +45,6 @@ export default class App extends Component<unknown, State> {
         shuffle: false,
         unlocked: false,
     };
-
-    public constructor(props: unknown) {
-        super(props);
-
-        if (typeof window !== 'undefined') {
-            this.state.repeat = !!(window.localStorage.getItem('repeat') ?? true);
-            this.state.shuffle = !!(window.localStorage.getItem('shuffle') ?? false);
-            this.state.volume = parseFloat(window.localStorage.getItem('volume') ?? '1') || 1;
-            this.state.active = parseInt(window.localStorage.getItem('active') ?? '0', 10) || 0;
-            if (this.state.volume < 0 || this.state.volume > 1) {
-                this.state.volume = 1;
-            }
-
-            const url = new URL(self.location.href);
-            if (url.searchParams.has('songid')) {
-                this.state.active = parseInt(url.searchParams.get('songid') as string, 10) - 1;
-            } else {
-                this._updateTitle();
-                this._updateURL(true);
-            }
-        }
-    }
 
     public componentDidMount(): void {
         self.addEventListener('popstate', this._onPopStateHandler);
@@ -102,8 +100,8 @@ export default class App extends Component<unknown, State> {
         const { active, playlist } = this.state;
         if (playlist && playlist[active]) {
             const { artist, title } = playlist[active];
-            // eslint-disable-next-line sonarjs/no-nested-template-literals
-            document.title = `${artist ? `${artist} — ` : ''}${title} — Myrotvorets.FM`;
+            const the_artist = artist ? `${artist} — ` : '';
+            document.title = `${the_artist}${title} — Myrotvorets.FM`;
         } else {
             document.title = 'Myrotvorets.FM';
         }

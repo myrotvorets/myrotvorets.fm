@@ -45,10 +45,6 @@ interface State {
 }
 
 export default class Player extends Component<Props, State> {
-    private _order: number[] = [];
-
-    private _howl: Howl | undefined;
-
     public state: Readonly<State> = {
         progress: 0,
         time: '00:00',
@@ -115,23 +111,6 @@ export default class Player extends Component<Props, State> {
 
         this.setState(state);
         this._howl.play();
-    };
-
-    private readonly _step = (): void => {
-        if (this._howl) {
-            const position = +this._howl.seek() || 0;
-            const duration = this._howl.duration();
-
-            this.setState({
-                progress: duration ? Math.round((position / duration) * 1000) / 10 : 0,
-                time: formatTime(position),
-                duration: formatTime(duration),
-            });
-
-            if (this._howl.playing()) {
-                requestAnimationFrame(this._step);
-            }
-        }
     };
 
     private readonly _onPauseClicked = (): void => {
@@ -203,6 +182,26 @@ export default class Player extends Component<Props, State> {
     private readonly _onErrorHandler = (_: unknown, e: unknown): void => {
         this.setState({ loading: false, state: 'paused' });
         this.props.onError?.(e);
+    };
+
+    private _order: number[] = [];
+    private _howl: Howl | undefined;
+
+    private readonly _step = (): void => {
+        if (this._howl) {
+            const position = +this._howl.seek() || 0;
+            const duration = this._howl.duration();
+
+            this.setState({
+                progress: duration ? Math.round((position / duration) * 1000) / 10 : 0,
+                time: formatTime(position),
+                duration: formatTime(duration),
+            });
+
+            if (this._howl.playing()) {
+                requestAnimationFrame(this._step);
+            }
+        }
     };
 
     private _createHowl(url: string): Howl {

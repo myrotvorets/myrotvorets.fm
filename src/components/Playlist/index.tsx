@@ -34,19 +34,6 @@ export default class Playlist extends Component<Props, State> {
         filter: '',
     };
 
-    private readonly _listRef: RefObject<VirtualList<PlaylistEntry>> = createRef();
-
-    private readonly _filterList = debounce((filter: string): void => {
-        const { playlist } = this.state;
-        if (filter.length >= 2) {
-            // eslint-disable-next-line @typescript-eslint/unbound-method
-            const filtered = (playlist as PlaylistEntry[]).filter(this.filterPlaylist, filter);
-            this.setState({ filter, filtered });
-        } else {
-            this.setState({ filtered: playlist || [], filter });
-        }
-    }, 250);
-
     public async componentDidMount(): Promise<void> {
         try {
             const response = await fetch(playlistURL);
@@ -89,6 +76,19 @@ export default class Playlist extends Component<Props, State> {
         const filter = e.currentTarget.value;
         this._filterList(filter);
     };
+
+    private readonly _listRef: RefObject<VirtualList<PlaylistEntry>> = createRef();
+
+    private readonly _filterList = debounce((filter: string): void => {
+        const { playlist } = this.state;
+        if (filter.length >= 2) {
+            // eslint-disable-next-line @typescript-eslint/unbound-method
+            const filtered = (playlist as PlaylistEntry[]).filter(this.filterPlaylist, filter);
+            this.setState({ filter, filtered });
+        } else {
+            this.setState({ filtered: playlist || [], filter });
+        }
+    }, 250);
 
     private parsePlaylist(text: string): void {
         const items = text
