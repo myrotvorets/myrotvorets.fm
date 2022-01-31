@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import webpackDevServer from 'webpack-dev-server';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -24,7 +25,7 @@ const prodMinifyOptions: HtmlWebpackPlugin.MinifyOptions = {
     html5: true,
 };
 
-export default function (htmlFile: string): webpack.Configuration {
+export default function (htmlFile: string): webpack.Configuration & { devServer: webpackDevServer.Configuration } {
     return {
         context: path.resolve(__dirname, '..'),
         node: false,

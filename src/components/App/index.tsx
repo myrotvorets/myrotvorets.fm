@@ -94,6 +94,7 @@ export default class App extends Component<unknown, State> {
     private readonly _onVolumeChanged = (v: number): unknown => this.setState({ volume: v });
 
     // !TODO
+    // eslint-disable-next-line class-methods-use-this
     private readonly _onError = (e: unknown): unknown => console.error(e);
 
     private _updateTitle(): void {

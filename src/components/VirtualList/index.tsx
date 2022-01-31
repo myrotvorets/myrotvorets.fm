@@ -54,6 +54,8 @@ export default class VirtualList<T = any> extends Component<
     Props<T> & Omit<h.JSX.HTMLAttributes<HTMLDivElement>, 'ref'> & ClassAttributes<VirtualList<T>>,
     State
 > {
+    private _firstRender = true;
+
     public constructor() {
         super();
         this._onResizeHandler = throttleWithRAF(this._onResizeHandler);
@@ -88,8 +90,6 @@ export default class VirtualList<T = any> extends Component<
         const base = this.base as HTMLElement;
         this.setState({ offset: base.scrollTop });
     };
-
-    private _firstRender = true;
 
     public scrollTo(item: number): void {
         const { rowHeight } = this.props;

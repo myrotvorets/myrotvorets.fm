@@ -65,6 +65,9 @@ export default class Player extends Component<Props, State> {
         return Object.keys(result).length ? result : null;
     }
 
+    private _order: number[] = [];
+    private _howl: Howl | undefined;
+
     public componentDidUpdate(prevProps: Props, prevState: State): void {
         if (prevProps.volume !== this.props.volume) {
             Howler.volume(this.props.volume);
@@ -183,9 +186,6 @@ export default class Player extends Component<Props, State> {
         this.setState({ loading: false, state: 'paused' });
         this.props.onError?.(e);
     };
-
-    private _order: number[] = [];
-    private _howl: Howl | undefined;
 
     private readonly _step = (): void => {
         if (this._howl) {
