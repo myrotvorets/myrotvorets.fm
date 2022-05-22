@@ -6,15 +6,13 @@ on:
       - '**'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, '[ci skip]') || github.event_name == 'workflow_dispatch' }}
-    strategy:
-      matrix:
-        node:
-          - '14'
-          - '16'
     name: Build (Node ${{ matrix.node }})
     steps:
       - name: Check out the code
@@ -23,21 +21,8 @@ jobs:
       - name: Set up Node.js environment
         uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3.2.0
         with:
-          node-version: ${{ matrix.node }}
-
-      - name: Update npm
-        run: npm i -g npm@latest
-
-      - name: Cache Node modules
-        uses: actions/cache@48af2dc4a9e8278b89d7fa154b955c30c6aaab09 # tag=v3.0.2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          cache: npm
+          node-version: lts/*
 
       - name: Install dependencies
         run: npm ci --ignore-scripts

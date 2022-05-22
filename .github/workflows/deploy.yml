@@ -19,21 +19,8 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3.2.0
         with:
-          node-version: 14
-
-      - name: Update npm
-        run: npm i -g npm@latest
-
-      - name: Cache Node modules
-        uses: actions/cache@48af2dc4a9e8278b89d7fa154b955c30c6aaab09 # tag=v3.0.2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          node-version: lts/*
+          cache: npm
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
@@ -71,7 +58,7 @@ jobs:
         with:
           token: "${{ github.token }}"
           state: "success"
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
 
       - name: Update deployment status (failure)
         if: failure()
@@ -79,4 +66,4 @@ jobs:
         with:
           token: "${{ github.token }}"
           state: "failure"
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
