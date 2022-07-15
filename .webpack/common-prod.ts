@@ -15,7 +15,7 @@ export default function (): webpack.Configuration {
             pathinfo: false,
             crossOriginLoading: 'anonymous',
         },
-        devtool: 'source-map',
+        devtool: 'hidden-source-map',
         mode: 'production',
         module: {
             rules: [
