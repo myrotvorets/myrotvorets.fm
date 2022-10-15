@@ -3,7 +3,7 @@ import glob from 'glob';
 import path from 'path';
 import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import PurgecssPlugin from 'purgecss-webpack-plugin';
+import { PurgeCSSPlugin } from 'purgecss-webpack-plugin';
 import { SubresourceIntegrityPlugin } from 'webpack-subresource-integrity';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { HwpInlineRuntimeChunkPlugin } from 'hwp-inline-runtime-chunk-plugin';
@@ -81,10 +81,12 @@ export default function (): webpack.Configuration {
                 excludeChunks: ['runtime', 'polyfills'],
                 dontCacheBustURLsMatching: /\.[0-9a-f]{5}\./u,
             }),
-            new PurgecssPlugin({
+            new PurgeCSSPlugin({
                 paths: glob.sync(`${path.join(__dirname, '../src')}/**/*`, {
                     nodir: true,
                 }),
+                safelist: [],
+                blocklist: [],
             }),
             new MiniCssExtractPlugin({
                 filename: '[name].[contenthash:5].min.css',
