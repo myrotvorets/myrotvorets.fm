@@ -29,7 +29,7 @@
     "@types/node": ">= 12",
     "@types/workbox-webpack-plugin": "^5.1.5",
     "autoprefixer": "^10.2.4",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "^9.0.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.2.0",
     "cssnano": "^5.0.0",
