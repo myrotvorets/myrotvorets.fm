@@ -61,11 +61,11 @@ export default function (): webpack.Configuration {
                 policy: {
                     'block-all-mixed-content': '',
                     'default-src': "'none'",
-                    'connect-src': ["'self'", 'https://psb4ukr.natocdn.net'],
+                    'connect-src': ["'self'", 'https://cdn.myrotvorets.center'],
                     'form-action': "'none'",
                     'img-src': ["'self'", 'data:'],
                     'manifest-src': "'self'",
-                    'media-src': ['https://psb4ukr.natocdn.net', 'data:'],
+                    'media-src': ['https://cdn.myrotvorets.center', 'data:'],
                     'script-src': "'self'",
                     'style-src': "'self'",
                     'worker-src': "'self'",

@@ -24,7 +24,7 @@ interface State {
     filter: string;
 }
 
-const baseURL = 'https://psb4ukr.natocdn.net/mp3/';
+const baseURL = 'https://cdn.myrotvorets.center/m/mp3/';
 const playlistURL = `${baseURL}playlist.txt?utm_source=myrfm`;
 
 export default class Playlist extends Component<Props, State> {
