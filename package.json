@@ -37,7 +37,7 @@
     "fast-async": "^7.0.6",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
-    "glob": "^8.0.0",
+    "glob": "^9.0.0",
     "howler": "^2.2.1",
     "html-webpack-plugin": "^5.0.0",
     "hwp-attributes-plugin": "^2.0.3",
