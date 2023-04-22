@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import glob from 'glob';
+import { sync } from 'glob';
 import path from 'path';
 import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -82,7 +82,7 @@ export default function (): webpack.Configuration {
                 dontCacheBustURLsMatching: /\.[0-9a-f]{5}\./u,
             }),
             new PurgeCSSPlugin({
-                paths: glob.sync(`${path.join(__dirname, '../src')}/**/*`, {
+                paths: sync(`${path.join(__dirname, '../src')}/**/*`, {
                     nodir: true,
                 }),
                 safelist: [],
