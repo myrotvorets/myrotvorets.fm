@@ -15,7 +15,7 @@
   "author": "Myrotvorets <support@myrotvorets.center> (https://myrotvorets.center/)",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.23.0",
+    "@babel/core": "^7.23.2",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
@@ -52,7 +52,7 @@
     "promise-polyfill": "^8.3.0",
     "purgecss-webpack-plugin": "^5.0.0",
     "ref-loader": "^1.0.3",
-    "sass": "^1.69.2",
+    "sass": "^1.69.3",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
     "svgo-loader": "^4.0.0",
