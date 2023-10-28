@@ -41,7 +41,7 @@
     "glob": "^10.3.10",
     "howler": "^2.2.4",
     "html-webpack-plugin": "^5.5.3",
-    "hwp-attributes-plugin": "^2.1.0",
+    "hwp-attributes-plugin": "^2.1.1",
     "hwp-csp-plugin": "^2.1.2",
     "hwp-inline-runtime-chunk-plugin": "^2.0.3",
     "isomorphic-unfetch": "^3.1.0",
