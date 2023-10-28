@@ -25,7 +25,7 @@
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-typescript": "^7.23.2",
     "@bugsnag/js": "^7.21.0",
-    "@myrotvorets/eslint-config-myrotvorets-preact-ts": "^2.7.0",
+    "@myrotvorets/eslint-config-myrotvorets-preact-ts": "^2.7.1",
     "@types/howler": "^2.2.10",
     "@types/node": ">= 20.8.9",
     "@types/workbox-webpack-plugin": "^5.1.8",
