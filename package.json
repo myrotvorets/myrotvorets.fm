@@ -40,7 +40,7 @@
     "fork-ts-checker-webpack-plugin": "^9.0.2",
     "glob": "^10.3.10",
     "howler": "^2.2.4",
-    "html-webpack-plugin": "^5.5.3",
+    "html-webpack-plugin": "^5.5.4",
     "hwp-attributes-plugin": "^2.1.1",
     "hwp-csp-plugin": "^2.1.3",
     "hwp-inline-runtime-chunk-plugin": "^2.0.4",
