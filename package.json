@@ -27,7 +27,7 @@
     "@bugsnag/js": "^7.22.3",
     "@myrotvorets/eslint-config-myrotvorets-preact-ts": "^2.7.1",
     "@types/howler": "^2.2.11",
-    "@types/node": ">= 20.11.7",
+    "@types/node": ">= 20.11.8",
     "@types/workbox-webpack-plugin": "^5.1.8",
     "autoprefixer": "^10.4.17",
     "babel-loader": "^9.1.3",
