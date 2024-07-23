@@ -53,7 +53,7 @@
     "purgecss-webpack-plugin": "^6.0.0",
     "ref-loader": "^1.0.3",
     "sass": "^1.70.0",
-    "sass-loader": "^14.1.0",
+    "sass-loader": "^15.0.0",
     "style-loader": "^4.0.0",
     "svgo-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.10",
