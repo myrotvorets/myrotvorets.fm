@@ -1,11 +1,12 @@
 import webpack from 'webpack';
+import { type Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { merge } from 'webpack-merge';
 import commonConfig from './common';
 
-export default function (): webpack.Configuration {
-    return merge(commonConfig('index.html'), {
+export default function (): webpack.Configuration & { devServer?: DevServerConfiguration } {
+    return merge(commonConfig('index.html') as webpack.Configuration & { devServer?: DevServerConfiguration }, {
         entry: {
             polyfills: path.resolve(__dirname, '../src/polyfills.js'),
         },
@@ -39,12 +40,7 @@ export default function (): webpack.Configuration {
                 'process.env.BUILD_SSR': JSON.stringify(false),
                 'process.env.ESM': JSON.stringify(false),
             }),
-            new ForkTsCheckerWebpackPlugin({
-                eslint: {
-                    enabled: true,
-                    files: ['src/**/*.{ts,tsx}'],
-                },
-            }),
+            new ForkTsCheckerWebpackPlugin(),
         ],
     });
 }

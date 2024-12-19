@@ -5,7 +5,7 @@ interface Props {
     onClick?: () => unknown;
 }
 
-export default function MuteButton({ onClick, muted }: Props): h.JSX.Element {
+export default function MuteButton({ onClick, muted }: Readonly<Props>): h.JSX.Element {
     const label = muted ? 'Увімкнути звук' : 'Вимкнути звук';
     const cls = muted ? 'MuteButton muted' : 'MuteButton';
 

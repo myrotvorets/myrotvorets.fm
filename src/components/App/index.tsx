@@ -30,14 +30,14 @@ export default class App extends Component<unknown, State> {
 
         const url = new URL(self.location.href);
         if (url.searchParams.has('songid')) {
-            this.state.active = parseInt(url.searchParams.get('songid') as string, 10) - 1 || 0;
+            this.state.active = parseInt(url.searchParams.get('songid')!, 10) - 1 || 0;
         } else {
             this._updateTitle();
             this._updateURL(true);
         }
     }
 
-    public state: State = {
+    public override state: State = {
         playlist: null,
         active: -1,
         volume: 1,
@@ -46,11 +46,11 @@ export default class App extends Component<unknown, State> {
         unlocked: false,
     };
 
-    public componentDidMount(): void {
+    public override componentDidMount(): void {
         self.addEventListener('popstate', this._onPopStateHandler);
     }
 
-    public componentDidUpdate(prevProps: unknown, prevState: Readonly<State>): void {
+    public override componentDidUpdate(prevProps: unknown, prevState: Readonly<State>): void {
         if (prevState.active !== this.state.active) {
             this._updateTitle();
             setLSItem('active', `${this.state.active}`);
@@ -70,14 +70,14 @@ export default class App extends Component<unknown, State> {
         }
     }
 
-    public componentWillUnmount(): void {
+    public override componentWillUnmount(): void {
         self.removeEventListener('popstate', this._onPopStateHandler);
     }
 
     private readonly _onPopStateHandler = (): void => {
         const url = new URL(location.href);
         if (url.searchParams.has('songid')) {
-            this.setState({ active: parseInt(url.searchParams.get('songid') as string, 10) - 1 });
+            this.setState({ active: parseInt(url.searchParams.get('songid')!, 10) - 1 });
         }
     };
 
@@ -93,13 +93,12 @@ export default class App extends Component<unknown, State> {
 
     private readonly _onVolumeChanged = (v: number): unknown => this.setState({ volume: v });
 
-    // !TODO
-    // eslint-disable-next-line class-methods-use-this
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private readonly _onError = (e: unknown): unknown => console.error(e);
 
     private _updateTitle(): void {
         const { active, playlist } = this.state;
-        if (playlist && playlist[active]) {
+        if (playlist?.[active]) {
             const { artist, title } = playlist[active];
             const the_artist = artist ? `${artist} — ` : '';
             document.title = `${the_artist}${title} — Myrotvorets.FM`;
@@ -125,7 +124,7 @@ export default class App extends Component<unknown, State> {
         return (
             <Fragment>
                 <Player
-                    playlist={playlist || []}
+                    playlist={playlist ?? []}
                     error={playlist === null}
                     current={active}
                     volume={volume}

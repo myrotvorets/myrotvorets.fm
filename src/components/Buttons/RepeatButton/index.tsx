@@ -5,7 +5,7 @@ interface Props {
     onClick?: () => unknown;
 }
 
-export default function RepeatButton({ onClick, repeat }: Props): h.JSX.Element {
+export default function RepeatButton({ onClick, repeat }: Readonly<Props>): h.JSX.Element {
     const label = repeat ? 'Не повторювати список' : 'Закільцювати список';
     const cls = repeat ? 'RepeatButton repeat' : 'RepeatButton';
 

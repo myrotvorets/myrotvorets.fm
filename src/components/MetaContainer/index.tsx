@@ -5,7 +5,7 @@ interface Props {
     title?: string;
 }
 
-export default function MetaContainer({ artist, title }: Props): h.JSX.Element {
+export default function MetaContainer({ artist, title }: Readonly<Props>): h.JSX.Element {
     return (
         <div className="meta-container">
             {artist || title ? (

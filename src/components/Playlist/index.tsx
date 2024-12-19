@@ -28,7 +28,7 @@ const baseURL = 'https://cdn.myrotvorets.center/m/mp3/';
 const playlistURL = `${baseURL}playlist.txt?utm_source=myrfm`;
 
 export default class Playlist extends Component<Props, State> {
-    public state: Readonly<State> = {
+    public override state: Readonly<State> = {
         playlist: undefined,
         filtered: [],
         filter: '',
@@ -40,14 +40,15 @@ export default class Playlist extends Component<Props, State> {
         const { playlist } = this.state;
         if (filter.length >= 2) {
             // eslint-disable-next-line @typescript-eslint/unbound-method
-            const filtered = (playlist as PlaylistEntry[]).filter(this.filterPlaylist, filter);
+            const filtered = playlist!.filter(this.filterPlaylist, filter);
             this.setState({ filter, filtered });
         } else {
-            this.setState({ filtered: playlist || [], filter });
+            this.setState({ filtered: playlist ?? [], filter });
         }
     }, 250);
 
-    public async componentDidMount(): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    public override async componentDidMount(): Promise<void> {
         try {
             const response = await fetch(playlistURL);
             if (response.ok) {
@@ -56,12 +57,12 @@ export default class Playlist extends Component<Props, State> {
             } else {
                 this._onPlaylistfetchError();
             }
-        } catch (e) {
+        } catch {
             this._onPlaylistfetchError();
         }
     }
 
-    public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {
+    public override componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {
         if (prevProps.active !== this.props.active || prevState.playlist?.length !== this.state.playlist?.length) {
             const n = this.state.filtered.findIndex((e) => e.id === this.props.active);
             this._listRef.current?.scrollTo(n);
@@ -79,7 +80,7 @@ export default class Playlist extends Component<Props, State> {
         if (onSongClicked !== undefined && e.target) {
             const li = (e.target as HTMLElement).closest<HTMLElement>('[data-id]');
             if (li) {
-                const id = parseInt(li.dataset.id || '', 10);
+                const id = parseInt(li.dataset['id'] ?? '', 10);
                 onSongClicked(id);
             }
         }
@@ -103,8 +104,8 @@ export default class Playlist extends Component<Props, State> {
                 if (parts.length === 3) {
                     return {
                         id: id++,
-                        artist: parts[0].replace(/^_/u, ''),
-                        title: parts[1],
+                        artist: parts[0]!.replace(/^_/u, ''),
+                        title: parts[1]!,
                         url: `${baseURL}${parts[2]}`,
                     };
                 }
@@ -120,7 +121,7 @@ export default class Playlist extends Component<Props, State> {
 
     private filterPlaylist(this: string, { artist, title }: PlaylistEntry): boolean {
         const filter = this.toLocaleLowerCase();
-        return artist.toLocaleLowerCase().indexOf(filter) !== -1 || title.toLocaleLowerCase().indexOf(filter) !== -1;
+        return artist.toLocaleLowerCase().includes(filter) || title.toLocaleLowerCase().includes(filter);
     }
 
     private readonly _renderPlaylistEntry = ({ id, artist, title }: PlaylistEntry): ComponentChild => {
@@ -192,12 +193,7 @@ export default class Playlist extends Component<Props, State> {
                     />
                 ) : (
                     <p>
-                        <strong>
-                            Нічого не знайдено{' '}
-                            <span role="img" aria-label="на жаль">
-                                😢
-                            </span>
-                        </strong>
+                        <strong>Нічого не знайдено 😢</strong>
                     </p>
                 )}
             </div>

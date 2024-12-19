@@ -5,7 +5,7 @@ interface Props {
     onClick?: () => unknown;
 }
 
-export default function ShuffleButton({ onClick, shuffle }: Props): h.JSX.Element {
+export default function ShuffleButton({ onClick, shuffle }: Readonly<Props>): h.JSX.Element {
     const label = shuffle ? 'Випадковий порядок відтворення' : 'Послідовний порядок відтворення';
     const cls = shuffle ? 'ShuffleButton shuffle' : 'ShuffleButton';
 

@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import webpackDevServer from 'webpack-dev-server';
+import { type Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -7,10 +7,11 @@ import { execSync } from 'child_process';
 
 let version: string;
 try {
+    // eslint-disable-next-line sonarjs/no-os-command-from-path
     version = execSync('git describe --always --long', { cwd: path.resolve(path.join(__dirname, '..')) })
         .toString()
         .trim();
-} catch (e) {
+} catch {
     version = 'development';
 }
 
@@ -25,7 +26,7 @@ const prodMinifyOptions: HtmlWebpackPlugin.MinifyOptions = {
     html5: true,
 };
 
-export default function (htmlFile: string): webpack.Configuration & { devServer: webpackDevServer.Configuration } {
+export default function (htmlFile: string): webpack.Configuration & { devServer: DevServerConfiguration } {
     return {
         context: path.resolve(__dirname, '..'),
         node: false,
@@ -115,7 +116,7 @@ export default function (htmlFile: string): webpack.Configuration & { devServer:
                 templateParameters: {
                     version,
                 },
-                minify: process.env.NODE_ENV === 'production' ? prodMinifyOptions : false,
+                minify: process.env['NODE_ENV'] === 'production' ? prodMinifyOptions : false,
             }),
         ],
     };

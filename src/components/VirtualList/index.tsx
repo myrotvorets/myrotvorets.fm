@@ -61,21 +61,21 @@ export default class VirtualList<T = any> extends Component<
         this._onResizeHandler = throttleWithRAF(this._onResizeHandler);
     }
 
-    public state: Readonly<State> = {
+    public override state: Readonly<State> = {
         height: 0,
         offset: 0,
     };
 
-    public componentDidMount(): void {
+    public override componentDidMount(): void {
         this._onResizeHandler();
         window.addEventListener('resize', this._onResizeHandler);
     }
 
-    public componentDidUpdate(): void {
+    public override componentDidUpdate(): void {
         this._onResizeHandler();
     }
 
-    public componentWillUnmount(): void {
+    public override componentWillUnmount(): void {
         window.removeEventListener('resize', this._onResizeHandler);
     }
 
