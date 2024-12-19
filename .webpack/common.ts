@@ -1,6 +1,5 @@
 import webpack from 'webpack';
-// eslint-disable-next-line import/default
-import webpackDevServer from 'webpack-dev-server';
+import { type Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -27,7 +26,7 @@ const prodMinifyOptions: HtmlWebpackPlugin.MinifyOptions = {
     html5: true,
 };
 
-export default function (htmlFile: string): webpack.Configuration & { devServer: webpackDevServer.Configuration } {
+export default function (htmlFile: string): webpack.Configuration & { devServer: DevServerConfiguration } {
     return {
         context: path.resolve(__dirname, '..'),
         node: false,
