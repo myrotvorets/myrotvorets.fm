@@ -116,7 +116,7 @@ export default function (htmlFile: string): webpack.Configuration & { devServer:
                 templateParameters: {
                     version,
                 },
-                minify: process.env.NODE_ENV === 'production' ? prodMinifyOptions : false,
+                minify: process.env['NODE_ENV'] === 'production' ? prodMinifyOptions : false,
             }),
         ],
     };

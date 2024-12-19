@@ -37,7 +37,7 @@ export default class App extends Component<unknown, State> {
         }
     }
 
-    public state: State = {
+    public override state: State = {
         playlist: null,
         active: -1,
         volume: 1,
@@ -46,11 +46,11 @@ export default class App extends Component<unknown, State> {
         unlocked: false,
     };
 
-    public componentDidMount(): void {
+    public override componentDidMount(): void {
         self.addEventListener('popstate', this._onPopStateHandler);
     }
 
-    public componentDidUpdate(prevProps: unknown, prevState: Readonly<State>): void {
+    public override componentDidUpdate(prevProps: unknown, prevState: Readonly<State>): void {
         if (prevState.active !== this.state.active) {
             this._updateTitle();
             setLSItem('active', `${this.state.active}`);
@@ -70,7 +70,7 @@ export default class App extends Component<unknown, State> {
         }
     }
 
-    public componentWillUnmount(): void {
+    public override componentWillUnmount(): void {
         self.removeEventListener('popstate', this._onPopStateHandler);
     }
 

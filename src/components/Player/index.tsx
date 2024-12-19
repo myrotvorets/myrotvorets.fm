@@ -45,7 +45,7 @@ interface State {
 }
 
 export default class Player extends Component<Props, State> {
-    public state: Readonly<State> = {
+    public override state: Readonly<State> = {
         progress: 0,
         time: '00:00',
         duration: '00:00',
@@ -55,7 +55,10 @@ export default class Player extends Component<Props, State> {
         loading: false,
     };
 
-    public static getDerivedStateFromProps(props: Readonly<Props>, prevState: Readonly<State>): Partial<State> | null {
+    public static override getDerivedStateFromProps(
+        props: Readonly<Props>,
+        prevState: Readonly<State>,
+    ): Partial<State> | null {
         const result: Partial<State> = {};
 
         if (props.unlocked !== prevState.unlocked && !prevState.unlocked) {
@@ -68,7 +71,7 @@ export default class Player extends Component<Props, State> {
     private _order: number[] = [];
     private _howl: Howl | undefined;
 
-    public componentDidUpdate(prevProps: Props, prevState: State): void {
+    public override componentDidUpdate(prevProps: Props, prevState: State): void {
         if (prevProps.volume !== this.props.volume) {
             Howler.volume(this.props.volume);
         }
@@ -95,7 +98,6 @@ export default class Player extends Component<Props, State> {
         const { current, playlist } = this.props;
         const { unlocked } = this.state;
         const entry = playlist[current];
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!entry) {
             return;
         }
@@ -131,7 +133,7 @@ export default class Player extends Component<Props, State> {
         const position = this._order.indexOf(current);
         if (position > 0 || repeat) {
             const newPosition = position - 1 >= 0 ? position - 1 : playlist.length - 1;
-            const id = this._order[newPosition];
+            const id = this._order[newPosition]!;
             onSongChanged?.(id);
         }
     };
@@ -142,7 +144,7 @@ export default class Player extends Component<Props, State> {
         const position = this._order.indexOf(current);
         if (position < playlist.length || repeat) {
             const newPosition = position + 1 >= playlist.length ? 0 : position + 1;
-            const id = this._order[newPosition];
+            const id = this._order[newPosition]!;
             onSongChanged?.(id);
         }
     };
@@ -249,8 +251,8 @@ export default class Player extends Component<Props, State> {
                 const randomIndex = Math.floor(Math.random() * len);
                 --len;
 
-                const tmp = order[len];
-                order[len] = order[randomIndex];
+                const tmp = order[len]!;
+                order[len] = order[randomIndex]!;
                 order[randomIndex] = tmp;
             }
         }
@@ -261,7 +263,7 @@ export default class Player extends Component<Props, State> {
     public render(): ComponentChild {
         const { current, playlist, repeat, shuffle, volume } = this.props;
         const { duration, loading, muted, progress, state, time } = this.state;
-        const entry = playlist[current] as PlaylistEntry | undefined;
+        const entry = playlist[current];
         const index = this._order.indexOf(current);
 
         return (
@@ -300,7 +302,7 @@ export default class Player extends Component<Props, State> {
                         )}
                     </div>
                 </div>
-                <MetaContainer artist={entry?.artist} title={entry?.title} />
+                <MetaContainer artist={entry?.artist ?? ''} title={entry?.title ?? ''} />
                 <div className="control-container">
                     <PrevButton disabled={!playlist.length || (index <= 0 && !repeat)} onClick={this._onPrevClicked} />
                     {!entry || state === 'paused' ? (

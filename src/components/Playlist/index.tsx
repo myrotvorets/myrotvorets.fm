@@ -28,7 +28,7 @@ const baseURL = 'https://cdn.myrotvorets.center/m/mp3/';
 const playlistURL = `${baseURL}playlist.txt?utm_source=myrfm`;
 
 export default class Playlist extends Component<Props, State> {
-    public state: Readonly<State> = {
+    public override state: Readonly<State> = {
         playlist: undefined,
         filtered: [],
         filter: '',
@@ -48,7 +48,7 @@ export default class Playlist extends Component<Props, State> {
     }, 250);
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    public async componentDidMount(): Promise<void> {
+    public override async componentDidMount(): Promise<void> {
         try {
             const response = await fetch(playlistURL);
             if (response.ok) {
@@ -62,7 +62,7 @@ export default class Playlist extends Component<Props, State> {
         }
     }
 
-    public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {
+    public override componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {
         if (prevProps.active !== this.props.active || prevState.playlist?.length !== this.state.playlist?.length) {
             const n = this.state.filtered.findIndex((e) => e.id === this.props.active);
             this._listRef.current?.scrollTo(n);
@@ -80,7 +80,7 @@ export default class Playlist extends Component<Props, State> {
         if (onSongClicked !== undefined && e.target) {
             const li = (e.target as HTMLElement).closest<HTMLElement>('[data-id]');
             if (li) {
-                const id = parseInt(li.dataset.id ?? '', 10);
+                const id = parseInt(li.dataset['id'] ?? '', 10);
                 onSongClicked(id);
             }
         }
@@ -104,8 +104,8 @@ export default class Playlist extends Component<Props, State> {
                 if (parts.length === 3) {
                     return {
                         id: id++,
-                        artist: parts[0].replace(/^_/u, ''),
-                        title: parts[1],
+                        artist: parts[0]!.replace(/^_/u, ''),
+                        title: parts[1]!,
                         url: `${baseURL}${parts[2]}`,
                     };
                 }

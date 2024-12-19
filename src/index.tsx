@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env['NODE_ENV'] === 'development') {
     require('preact/debug');
 }
 
@@ -11,7 +11,7 @@ export default function Application(): h.JSX.Element {
     return <App />;
 }
 
-if (!process.env.BUILD_SSR) {
+if (!process.env['BUILD_SSR']) {
     const { body } = document;
     const node = document.getElementById('app') ?? undefined;
     // eslint-disable-next-line sonarjs/deprecation, @typescript-eslint/no-deprecated
@@ -22,7 +22,7 @@ if (!process.env.BUILD_SSR) {
 
     if (
         'serviceWorker' in navigator &&
-        process.env.NODE_ENV === 'production' &&
+        process.env['NODE_ENV'] === 'production' &&
         !/^(127|192\.168|10)\./u.test(window.location.hostname)
     ) {
         navigator.serviceWorker
@@ -48,6 +48,7 @@ if (!process.env.BUILD_SSR) {
     }
 
     document.getElementById('version')!.addEventListener('click', () => {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (self.caches) {
             self.caches
                 .keys()
