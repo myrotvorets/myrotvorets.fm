@@ -19,9 +19,9 @@ module.exports = function(api) {
         "pragmaFrag": "Fragment"
       }],
       process.env.BUILD_SSR ? ["babel-plugin-dynamic-import-node-sync"] : null,
-      ["@babel/plugin-proposal-class-properties", { "loose": true }],
-      ["@babel/plugin-proposal-optional-chaining", { "loose": true }],
-      ["@babel/plugin-proposal-nullish-coalescing-operator", { "loose": true }],
+      ["@babel/plugin-transform-class-properties", { "loose": true }],
+      ["@babel/plugin-transform-optional-chaining", { "loose": true }],
+      ["@babel/plugin-transform-nullish-coalescing-operator", { "loose": true }],
       ["@babel/plugin-transform-private-methods", { "loose": true }],
       ["module:fast-async"]
     ].filter(Boolean)
