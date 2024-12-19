@@ -5,7 +5,7 @@ interface Props {
     filter: string;
 }
 
-export default function MatchedText({ text, filter }: Props): h.JSX.Element {
+export default function MatchedText({ text, filter }: Readonly<Props>): h.JSX.Element {
     if (!filter.length) {
         return <Fragment>{text}</Fragment>;
     }

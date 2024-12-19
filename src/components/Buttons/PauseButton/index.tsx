@@ -4,7 +4,7 @@ interface Props {
     onClick?: () => unknown;
 }
 
-export default function PauseButton({ onClick }: Props): h.JSX.Element {
+export default function PauseButton({ onClick }: Readonly<Props>): h.JSX.Element {
     return (
         <button aria-label="Пауза" onClick={onClick}>
             <svg viewBox="0 0 47 47">

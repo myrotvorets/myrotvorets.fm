@@ -8,7 +8,7 @@ export function formatTime(secs: number): string {
 export function setLSItem(key: string, value: string): void {
     try {
         window.localStorage.setItem(key, value);
-    } catch (e) {
+    } catch {
         // Swallow
     }
 }

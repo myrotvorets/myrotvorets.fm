@@ -1,31 +1,34 @@
-module.exports = function(api) {
-  api.cache(() => [process.env.NODE_ENV || 'development', process.env.BUILD_SSR || 'false'].join(':'));
+module.exports = function (api) {
+    api.cache(() => [process.env.NODE_ENV || 'development', process.env.BUILD_SSR || 'false'].join(':'));
 
-  const config = {
-    "presets": [
-      "@babel/preset-typescript",
-      [
-        "@babel/env",
-        {
-          "modules": false,
-          "loose": true,
-          "exclude": ["transform-regenerator", "transform-async-to-generator"]
-        }
-      ],
-    ],
-    "plugins": [
-      ["@babel/plugin-transform-react-jsx", {
-        "pragma": "h",
-        "pragmaFrag": "Fragment"
-      }],
-      process.env.BUILD_SSR ? ["babel-plugin-dynamic-import-node-sync"] : null,
-      ["@babel/plugin-transform-class-properties", { "loose": true }],
-      ["@babel/plugin-transform-optional-chaining", { "loose": true }],
-      ["@babel/plugin-transform-nullish-coalescing-operator", { "loose": true }],
-      ["@babel/plugin-transform-private-methods", { "loose": true }],
-      ["module:fast-async"]
-    ].filter(Boolean)
-  };
+    const config = {
+        presets: [
+            '@babel/preset-typescript',
+            [
+                '@babel/env',
+                {
+                    modules: false,
+                    loose: true,
+                    exclude: ['transform-regenerator', 'transform-async-to-generator'],
+                },
+            ],
+        ],
+        plugins: [
+            [
+                '@babel/plugin-transform-react-jsx',
+                {
+                    pragma: 'h',
+                    pragmaFrag: 'Fragment',
+                },
+            ],
+            process.env.BUILD_SSR ? ['babel-plugin-dynamic-import-node-sync'] : null,
+            ['@babel/plugin-transform-class-properties', { loose: true }],
+            ['@babel/plugin-transform-optional-chaining', { loose: true }],
+            ['@babel/plugin-transform-nullish-coalescing-operator', { loose: true }],
+            ['@babel/plugin-transform-private-methods', { loose: true }],
+            ['module:fast-async'],
+        ].filter(Boolean),
+    };
 
-  return config;
-}
+    return config;
+};

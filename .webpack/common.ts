@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+// eslint-disable-next-line import/default
 import webpackDevServer from 'webpack-dev-server';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -7,10 +8,11 @@ import { execSync } from 'child_process';
 
 let version: string;
 try {
+    // eslint-disable-next-line sonarjs/no-os-command-from-path
     version = execSync('git describe --always --long', { cwd: path.resolve(path.join(__dirname, '..')) })
         .toString()
         .trim();
-} catch (e) {
+} catch {
     version = 'development';
 }
 

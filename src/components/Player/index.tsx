@@ -95,6 +95,7 @@ export default class Player extends Component<Props, State> {
         const { current, playlist } = this.props;
         const { unlocked } = this.state;
         const entry = playlist[current];
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!entry) {
             return;
         }
@@ -166,7 +167,7 @@ export default class Player extends Component<Props, State> {
     private readonly _onPositionChanged = ({ currentTarget }: h.JSX.TargetedEvent<HTMLInputElement>): void => {
         const { valueAsNumber } = currentTarget;
 
-        if (this._howl && this._howl.playing()) {
+        if (this._howl?.playing()) {
             this._howl.seek((this._howl.duration() * valueAsNumber) / 100);
         }
     };
@@ -225,7 +226,7 @@ export default class Player extends Component<Props, State> {
         this.setState({
             progress: 0,
             time: formatTime(0),
-            duration: formatTime(this._howl?.duration() || 0),
+            duration: formatTime(this._howl?.duration() ?? 0),
         });
 
         if (unlocked) {
@@ -244,6 +245,7 @@ export default class Player extends Component<Props, State> {
 
         if (shuffle) {
             while (len > 0) {
+                // eslint-disable-next-line sonarjs/pseudo-random
                 const randomIndex = Math.floor(Math.random() * len);
                 --len;
 
@@ -259,7 +261,7 @@ export default class Player extends Component<Props, State> {
     public render(): ComponentChild {
         const { current, playlist, repeat, shuffle, volume } = this.props;
         const { duration, loading, muted, progress, state, time } = this.state;
-        const entry = playlist[current];
+        const entry = playlist[current] as PlaylistEntry | undefined;
         const index = this._order.indexOf(current);
 
         return (

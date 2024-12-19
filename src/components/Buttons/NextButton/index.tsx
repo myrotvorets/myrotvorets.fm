@@ -5,7 +5,7 @@ interface Props {
     onClick?: () => unknown;
 }
 
-export default function NextButton({ disabled, onClick }: Props): h.JSX.Element {
+export default function NextButton({ disabled, onClick }: Readonly<Props>): h.JSX.Element {
     return (
         <button aria-label="Наступна" disabled={disabled} onClick={onClick}>
             <svg viewBox="0 0 47 47">

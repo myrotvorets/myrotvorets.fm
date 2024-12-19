@@ -1,5 +1,4 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 if (process.env.NODE_ENV === 'development') {
     require('preact/debug');
@@ -14,7 +13,8 @@ export default function Application(): h.JSX.Element {
 
 if (!process.env.BUILD_SSR) {
     const { body } = document;
-    const node = document.getElementById('app') || undefined;
+    const node = document.getElementById('app') ?? undefined;
+    // eslint-disable-next-line sonarjs/deprecation, @typescript-eslint/no-deprecated
     render(<Application />, body, node);
     if (node) {
         body.removeChild(node);
@@ -47,29 +47,27 @@ if (!process.env.BUILD_SSR) {
             });
     }
 
-    (document.getElementById('version') as HTMLElement).addEventListener('click', () => {
+    document.getElementById('version')!.addEventListener('click', () => {
         if (self.caches) {
             self.caches
                 .keys()
                 .then((keyList) => Promise.all(keyList.map((key) => self.caches.delete(key))))
                 .then(() => {
                     if ('serviceWorker' in navigator) {
-                        // eslint-disable-next-line promise/no-nesting
                         navigator.serviceWorker
                             .getRegistration()
                             .then((reg) => {
                                 if (reg) {
-                                    // eslint-disable-next-line promise/no-nesting
                                     reg.unregister()
                                         .then(() => self.location.reload())
-                                        .catch((e) => console.error(e));
+                                        .catch((e: unknown) => console.error(e));
                                 } else {
                                     self.location.reload();
                                 }
 
                                 return null;
                             })
-                            .catch((e) => {
+                            .catch((e: unknown) => {
                                 console.error(e);
                                 self.location.reload();
                             });
@@ -79,7 +77,7 @@ if (!process.env.BUILD_SSR) {
 
                     return null;
                 })
-                .catch((e) => {
+                .catch((e: unknown) => {
                     console.error(e);
                     self.location.reload();
                 });
