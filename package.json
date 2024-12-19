@@ -60,7 +60,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "webpack": "^5.90.1",
-    "webpack-cli": "^5.1.4",
+    "webpack-cli": "^6.0.0",
     "webpack-dev-server": "^5.0.0",
     "webpack-merge": "^6.0.0",
     "webpack-subresource-integrity": "^5.1.0",
